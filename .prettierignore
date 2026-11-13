@@ -5,3 +5,6 @@ public/**/*.svg
 public/**/*.png
 public/**/*.ico
 src/fonts
+src/components/hero/wordmark.svg
+src/components/hero/wordmark.css
+src/components/anatomy/wordmark-anatomy.svg

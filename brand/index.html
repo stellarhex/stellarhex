@@ -20,12 +20,18 @@
     <section class="hero" aria-label="Brand">
       <div class="hero__inner">
         <div class="hero__text">
-          <h1 class="hero__title">Brand</h1>
+          <h1 class="visually-hidden">Brand</h1>
+          <div class="hero__word">
+            <include src="src/components/hero/wordmark.svg" />
+          </div>
+          <span class="hero__motto">Out of many · one light</span>
         </div>
       </div>
     </section>
     <div class="page">
-      <main id="content" class="page__main" tabindex="-1"></main>
+      <main id="content" class="page__main" tabindex="-1">
+        <include src="src/components/anatomy/anatomy.html" />
+      </main>
     </div>
     <include src="src/components/footer/footer.html" />
   </body>

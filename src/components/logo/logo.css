@@ -1,6 +1,8 @@
 @layer components {
   .logo {
-    display: block;
+    display: grid;
+    place-items: center;
+    width: var(--layout-brand);
     height: var(--layout-brand);
     color: var(--color-brand);
   }

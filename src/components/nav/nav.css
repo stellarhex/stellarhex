@@ -5,13 +5,6 @@
     translate: 0 calc(var(--fold-rise, 0) * var(--layout-hex-pitch) / -4);
   }
 
-  .nav__icon {
-    position: relative;
-    z-index: 1;
-    width: var(--layout-icon);
-    height: var(--layout-icon);
-  }
-
   .nav__link {
     z-index: 1;
     --tilt: 1;
