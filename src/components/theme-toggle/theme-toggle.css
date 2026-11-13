@@ -1,0 +1,36 @@
+@layer components {
+  .theme-toggle {
+    --tilt: 1;
+    cursor: pointer;
+    color: var(--color-ink);
+    translate: 0
+      calc(
+        (var(--tilt) - var(--fold-rise, 0)) * var(--layout-hex-pitch) / 4 + var(--fold-drop, 0) *
+          var(--layout-hex-pitch)
+      );
+
+    &:focus-visible {
+      outline: none;
+    }
+
+    .theme-toggle__moon,
+    .theme-toggle__sun {
+      position: relative;
+      z-index: 1;
+      width: var(--layout-icon);
+      height: var(--layout-icon);
+    }
+
+    .theme-toggle__sun {
+      display: none;
+    }
+  }
+
+  :root[data-theme="dark"] .theme-toggle__moon {
+    display: none;
+  }
+
+  :root[data-theme="dark"] .theme-toggle__sun {
+    display: block;
+  }
+}

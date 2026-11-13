@@ -1,0 +1,42 @@
+@layer components {
+  .hex {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    place-items: center;
+    width: var(--layout-hex-width);
+    height: var(--layout-hex-height);
+  }
+
+  .hex::before,
+  .hex::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+
+  .hex::before {
+    z-index: 0;
+    background: var(--color-ground);
+    clip-path: var(--shape-hexagon);
+  }
+
+  .hex::after {
+    z-index: 1;
+    background: var(--color-rule);
+    transition: background-color var(--duration);
+    mask: var(--shape-hex-ring) center / 100% 100% no-repeat;
+  }
+
+  .hex:is(:hover, :focus-visible)::after {
+    background: var(--color-ink);
+  }
+}
+
+@media (forced-colors: active) {
+  .hex:focus-visible,
+  .theme-toggle:focus-visible {
+    outline: 2px solid;
+    outline-offset: 2px;
+  }
+}

@@ -1,0 +1,13 @@
+#!/bin/sh
+set -u
+
+hooks_dir=$(git config --global core.hooksPath 2>/dev/null || true)
+case "$hooks_dir" in
+  "~"*) hooks_dir="$HOME${hooks_dir#\~}" ;;
+esac
+
+if [ -n "$hooks_dir" ] && [ -x "$hooks_dir/pre-commit" ]; then
+  "$hooks_dir/pre-commit" || exit 1
+fi
+
+exec node scripts/check-staged-format.js

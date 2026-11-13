@@ -1,0 +1,15 @@
+@font-face {
+  font-family: "StellarHex";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/StellarHex-Sans.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "StellarHex Mono";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/StellarHex-Mono.woff2") format("woff2");
+}

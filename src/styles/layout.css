@@ -1,0 +1,217 @@
+:root {
+  --layout-column: 75rem;
+  --layout-gutter: calc(var(--spacing) * 4);
+  --layout-frame: 8.75rem;
+  --layout-topbar: calc(var(--spacing) * 20);
+  --layout-page-gap: calc(var(--spacing) * 12);
+  --layout-hero: 70vh;
+  --layout-block-pad: calc(var(--spacing) * 28);
+  --layout-hero-pad: calc(var(--spacing) * 8);
+  --layout-grid-gap: calc(var(--spacing) * 6);
+  --layout-footer-pad: calc(var(--spacing) * 20);
+  --layout-footer-gap: calc(var(--spacing) * 8);
+  --layout-brand: calc(var(--spacing) * 12);
+  --layout-side: calc((100% - var(--layout-sheet)) / 2);
+  --layout-band: min(var(--layout-frame), var(--layout-side));
+  --layout-axis: calc(
+    var(--layout-side) -
+      clamp(0px, var(--layout-band) - var(--layout-brand), var(--layout-band) / 2)
+  );
+  --layout-bar-middle: calc(env(safe-area-inset-top, 0px) + var(--layout-topbar) / 2);
+  --layout-brand-inset: var(--layout-gutter);
+  --layout-hex-width: calc(var(--spacing) * 9);
+  --layout-hex-ratio: 0.866;
+  --layout-hex-height: calc(var(--layout-hex-width) * var(--layout-hex-ratio));
+  --layout-icon: calc(var(--spacing) * 3.5);
+  --layout-tap: calc(var(--spacing) * 11);
+  --layout-hex-pitch: calc(var(--layout-hex-height) + calc(var(--spacing) * 4));
+  --layout-hex-stride: calc(var(--layout-hex-pitch) * var(--layout-hex-ratio));
+  --layout-toggle-inset: var(--layout-gutter);
+  --layout-sheet: min(var(--layout-column), 100% - 2 * var(--layout-gutter));
+  --layout-dash: 32px;
+  --layout-hairline: 1px;
+  --pattern-dash-x: linear-gradient(to right, var(--color-rule) 50%, transparent 0);
+  --pattern-dash-y: linear-gradient(var(--color-rule) 50%, transparent 0);
+  --layout-spark-size: 15px;
+  --layout-spark-at: calc((var(--layout-hairline) - var(--layout-spark-size)) / 2);
+  --asset-spark: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 15 15'><path d='M7.5 2C8.05 5.96 9.04 6.95 13 7.5C9.04 8.05 8.05 9.04 7.5 13C6.95 9.04 5.96 8.05 2 7.5C5.96 6.95 6.95 5.96 7.5 2Z'/></svg>");
+}
+
+@supports (height: 100svh) {
+  :root {
+    --layout-hero: 70svh;
+  }
+}
+
+@media (width < 48rem) {
+  :root {
+    --layout-brand: calc(var(--spacing) * 8);
+    --layout-topbar: calc(var(--spacing) * 14);
+    --layout-page-gap: calc(var(--spacing) * 8);
+    --layout-footer-pad: calc(var(--spacing) * 3);
+    --layout-footer-gap: calc(var(--spacing) * 6);
+    --layout-hex-width: calc(var(--spacing) * 9.5);
+    --layout-hero-pad: calc(var(--spacing) * 10);
+  }
+}
+
+@media (width >= 48rem) {
+  :root {
+    --layout-gutter: calc(var(--spacing) * 6);
+    --layout-brand-inset: max(var(--layout-gutter), var(--layout-axis) - var(--layout-brand) / 2);
+    --layout-toggle-inset: max(
+      var(--layout-gutter),
+      var(--layout-axis) - var(--layout-hex-width) / 2
+    );
+  }
+}
+
+@media (width >= 80rem) {
+  :root {
+    --layout-gutter: calc(var(--spacing) * 8);
+  }
+}
+
+@layer base {
+  :root {
+    overflow-x: clip;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100svh;
+    position: relative;
+    padding-top: var(--layout-topbar);
+    padding-inline: env(safe-area-inset-left, 0px) env(safe-area-inset-right, 0px);
+    overflow-x: clip;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      top: var(--layout-topbar);
+      bottom: 0;
+      z-index: -1;
+      display: none;
+      pointer-events: none;
+      background:
+        var(--pattern-dash-y) left top / var(--layout-hairline) var(--layout-dash) repeat-y,
+        var(--pattern-dash-y) right top / var(--layout-hairline) var(--layout-dash) repeat-y;
+    }
+
+    &::before {
+      left: calc(50% - var(--layout-sheet) / 2);
+      width: var(--layout-sheet);
+    }
+
+    &::after {
+      left: calc(50% - var(--layout-sheet) / 2 - var(--layout-band));
+      width: calc(var(--layout-sheet) + 2 * var(--layout-band));
+    }
+  }
+
+  @media (width >= 48rem) {
+    body::before,
+    body::after {
+      display: block;
+    }
+  }
+}
+
+@layer components {
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+
+    &:focus {
+      left: calc(var(--spacing) * 4);
+      top: calc(var(--spacing) * 4);
+      z-index: 3;
+      padding: calc(var(--spacing) * 2) calc(var(--spacing) * 4);
+      background: var(--color-ink);
+      color: var(--color-ground);
+    }
+  }
+
+  .topbar {
+    position: fixed;
+    inset-inline: 0;
+    top: 0;
+    z-index: 2;
+    height: var(--layout-topbar);
+  }
+
+  .topbar .theme-toggle {
+    position: absolute;
+    z-index: 2;
+    top: calc(var(--layout-bar-middle) - var(--layout-hex-height) / 2);
+    right: var(--layout-toggle-inset);
+  }
+
+  .topbar .nav {
+    position: fixed;
+    top: calc(var(--layout-bar-middle) - var(--layout-hex-height) / 2);
+    right: calc(var(--layout-toggle-inset) + var(--layout-hex-stride));
+    z-index: 1;
+  }
+
+  .topbar .logo {
+    position: absolute;
+    top: calc(var(--layout-bar-middle) - var(--layout-brand) / 2);
+    left: var(--layout-brand-inset);
+  }
+
+  .page {
+    position: relative;
+    display: grid;
+    flex: 1 1 auto;
+    grid-template-rows: 1fr;
+    width: var(--layout-sheet);
+    margin-inline: auto;
+    padding-block: 0 var(--layout-page-gap);
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      left: calc(var(--layout-spark-at) - var(--layout-frame));
+      width: calc(100% + 2 * var(--layout-frame) - 2 * var(--layout-spark-at));
+      height: var(--layout-spark-size);
+      display: none;
+      background: var(--color-rule);
+      mask:
+        var(--asset-spark) left 0 top 0 / var(--layout-spark-size) no-repeat,
+        var(--asset-spark) left var(--layout-frame) top 0 / var(--layout-spark-size) no-repeat,
+        var(--asset-spark) right var(--layout-frame) top 0 / var(--layout-spark-size) no-repeat,
+        var(--asset-spark) right 0 top 0 / var(--layout-spark-size) no-repeat;
+      pointer-events: none;
+    }
+
+    &::before {
+      top: calc(var(--layout-spark-at) - var(--layout-hairline));
+    }
+
+    &::after {
+      top: calc(100% + var(--layout-spark-at));
+    }
+  }
+
+  .page__main {
+    display: grid;
+    gap: calc(2 * var(--layout-page-gap));
+  }
+
+  @media (width >= 48rem) {
+    .page__main {
+      padding-inline: var(--layout-page-gap);
+    }
+
+    .page::before,
+    .page::after {
+      display: block;
+    }
+  }
+}

@@ -1,0 +1,77 @@
+@layer components {
+  .nav {
+    display: none;
+    isolation: isolate;
+    translate: 0 calc(var(--fold-rise, 0) * var(--layout-hex-pitch) / -4);
+  }
+
+  .nav__icon {
+    position: relative;
+    z-index: 1;
+    width: var(--layout-icon);
+    height: var(--layout-icon);
+  }
+
+  .nav__link {
+    z-index: 1;
+    --tilt: 1;
+    translate: 0 calc(var(--tilt) * var(--fold-parity, 1) * var(--layout-hex-pitch) / 4);
+    rotate: var(--fold-angle, 0deg);
+    color: var(--color-ink-muted);
+    text-decoration: none;
+  }
+
+  .nav__link + .nav__link {
+    margin-left: calc(var(--layout-hex-stride) - var(--layout-hex-width));
+  }
+
+  .nav__link:nth-child(odd) {
+    --tilt: -1;
+  }
+
+  .nav__link:is(:hover, :focus-visible, [aria-current="page"]) {
+    color: var(--color-ink);
+  }
+
+  .nav__link[aria-current="page"]::after {
+    z-index: 2;
+    background: var(--color-brand-ui);
+    transition: none;
+  }
+
+  .nav::before {
+    content: "";
+    position: absolute;
+    top: calc(50% - var(--layout-hex-pitch) / 4);
+    left: calc(var(--layout-hex-width) / 2);
+    right: calc(var(--layout-hex-width) / 2 - var(--layout-hex-stride));
+    z-index: 0;
+    height: calc(var(--layout-hex-pitch) / 2);
+    background: var(--color-rule);
+    --nav-rail: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 2 1' preserveAspectRatio='none'><path d='M0 0L1 1L2 0' fill='none' stroke='black' vector-effect='non-scaling-stroke'/></svg>");
+    mask: var(--nav-rail) left top / calc(2 * var(--layout-hex-stride)) 100% repeat-x;
+    mask-position: calc(var(--fold-phase, 0) * -1 * var(--layout-hex-stride)) 0;
+    clip-path: inset(0 0 0 calc(var(--fold-progress, 0) * var(--layout-hex-stride)));
+    pointer-events: none;
+  }
+
+  .nav::after {
+    content: "";
+    position: absolute;
+    top: calc(50% + var(--layout-hex-pitch) / 4);
+    left: calc(
+      100% + var(--layout-hex-stride) - var(--layout-hex-width) / 2 - var(--layout-hairline) / 2
+    );
+    z-index: 0;
+    width: var(--layout-hairline);
+    height: calc(var(--fold-drop, 0) * var(--layout-hex-pitch));
+    background: var(--color-rule);
+    pointer-events: none;
+  }
+
+  @media (width >= 48rem) {
+    .nav {
+      display: flex;
+    }
+  }
+}

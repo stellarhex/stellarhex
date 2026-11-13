@@ -1,0 +1,67 @@
+{
+  "name": "stellarhex",
+  "private": true,
+  "version": "1.0.0",
+  "description": "StellarHex company website",
+  "author": "StellarHex",
+  "license": "MIT",
+  "homepage": "https://stellarhex.github.io/stellarhex/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stellarhex/stellarhex.git"
+  },
+  "bugs": {
+    "url": "https://github.com/stellarhex/stellarhex/issues"
+  },
+  "keywords": [
+    "stellarhex",
+    "company-website",
+    "static-site",
+    "vite",
+    "html-partials"
+  ],
+  "engines": {
+    "node": "^24.15.0 || >=26.0.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && node scripts/sitemap.js",
+    "preview": "vite preview",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint .",
+    "lint:css": "stylelint \"src/**/*.css\"",
+    "check:html": "html-validate dist",
+    "check:links": "node scripts/check-links.js",
+    "check": "npm run format:check && npm run lint && npm run lint:css && npm run build && npm run check:html && npm run check:links",
+    "prepare": "sh -c 'if [ -e .git ]; then git config core.hooksPath .githooks; fi'"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.14.0",
+    "globals": "^17.14.0",
+    "html-validate": "^11.21.0",
+    "prettier": "^3.10.0",
+    "stylelint": "^18.0.0",
+    "stylelint-config-recommended": "^19.0.0",
+    "vite": "^8.3.8",
+    "vite-plugin-html-inject": "^1.2.0"
+  },
+  "type": "module",
+  "contributors": [
+    {
+      "name": "Giorgi Kishmareia",
+      "url": "https://github.com/q1sh101"
+    },
+    {
+      "name": "Batu Dere",
+      "url": "https://github.com/Null4d"
+    }
+  ],
+  "browserslist": [
+    "chrome >= 111",
+    "edge >= 111",
+    "firefox >= 113",
+    "safari >= 16.2"
+  ]
+}

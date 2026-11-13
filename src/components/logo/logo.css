@@ -1,0 +1,12 @@
+@layer components {
+  .logo {
+    display: block;
+    height: var(--layout-brand);
+    color: var(--color-brand);
+  }
+
+  .logo__mark {
+    height: 100%;
+    width: auto;
+  }
+}

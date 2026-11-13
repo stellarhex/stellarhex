@@ -1,0 +1,32 @@
+:root {
+  --color-night: #0d0f14;
+  --color-night-soft: #a8b1c0;
+  --color-brand: #f86848;
+  --color-brand-ui: light-dark(#e8512f, var(--color-brand));
+
+  --color-ground: light-dark(#f7f0e7, var(--color-night));
+  --color-ink: light-dark(#302b28, #f3f5f9);
+  --color-ink-muted: light-dark(#6b6056, var(--color-night-soft));
+  --color-rule: light-dark(#d8d0c7, #2d3038);
+
+  --spacing: 0.25rem;
+
+  --text-xs: 0.75rem;
+  --text-3xl: 1.875rem;
+  --text-5xl: 3rem;
+  --text-sm: 0.875rem;
+
+  --font-sans: "StellarHex", system-ui, sans-serif;
+  --font-mono: "StellarHex Mono", ui-monospace, Menlo, Consolas, monospace;
+
+  --shape-hexagon: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+  --shape-hex-ring: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 31.1833'><polygon points='9.2887 0.5 26.7113 0.5 35.4226 15.5917 26.7113 30.6833 9.2887 30.6833 0.5774 15.5917' fill='none' stroke='black' stroke-width='1'/></svg>");
+
+  --duration: 0.2s;
+
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+
+  --tracking-tight: -0.025em;
+  --tracking-widest: 0.1em;
+}

@@ -1,0 +1,7 @@
+dist
+node_modules
+package-lock.json
+public/**/*.svg
+public/**/*.png
+public/**/*.ico
+src/fonts
