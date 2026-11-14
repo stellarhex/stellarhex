@@ -2,6 +2,47 @@ import { resolve } from "node:path";
 import { defineConfig } from "vite";
 import injectHTML from "vite-plugin-html-inject";
 import { ALLOW_INDEXING, BASE_PATH, GOOGLE_SITE_VERIFICATION, SITE_URL } from "./site.config.js";
+import { captureIdentity } from "./scripts/identity-svg.js";
+
+function identityInline() {
+  let baked = null;
+
+  const fill = (html) => {
+    if (!baked) return html;
+
+    let out = html;
+
+    for (const [id, markup] of Object.entries(baked.svg)) {
+      out = out.replace(new RegExp(`<svg[^>]*\\sid="${id}"[^>]*>[\\s\\S]*?</svg>`), () => markup);
+    }
+    const logo = baked.svg["brand-mark"];
+
+    if (logo) {
+      out = out.replace(
+        /(<span[^>]*\sid="brand-mark"[^>]*>)\s*<\/span>/,
+        (_match, open) => `${open}${logo}</span>`,
+      );
+    }
+
+    for (const [id, markup] of Object.entries(baked.text)) {
+      out = out.replace(
+        new RegExp(`(<span[^>]*\\sid="${id}"[^>]*>)\\s*</span>`),
+        (_match, open) => open + markup + "</span>",
+      );
+    }
+
+    return out;
+  };
+
+  return {
+    name: "identity-inline",
+    apply: "build",
+    async buildStart() {
+      baked = await captureIdentity();
+    },
+    transformIndexHtml: { order: "post", handler: fill },
+  };
+}
 
 export default defineConfig(({ command, isPreview }) => ({
   base: command === "build" || isPreview ? BASE_PATH : "/",
@@ -9,6 +50,7 @@ export default defineConfig(({ command, isPreview }) => ({
   /* ---------- html ---------- */
 
   plugins: [
+    identityInline(),
     {
       name: "site-html",
       transformIndexHtml: (html) =>
@@ -38,6 +80,11 @@ export default defineConfig(({ command, isPreview }) => ({
     port: 8188,
     strictPort: true,
   },
+  preview: {
+    port: 8888,
+    strictPort: true,
+  },
+
   /* ---------- build ---------- */
 
   build: {
