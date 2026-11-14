@@ -37,6 +37,9 @@ export const MIRROR = (() => {
     centres,
     rim: 2 * pitch + apothem(segment),
     outline: (4 * segmentRadius) / (SQRT3 / 2),
+    extent: Math.max(
+      ...centres.flatMap(([x, y]) => hexagon(segment, x, y).map((corner) => Math.hypot(...corner))),
+    ),
     strutAngles: [-90, 30, 150],
     strutWidth: 2 * MODULE,
   };

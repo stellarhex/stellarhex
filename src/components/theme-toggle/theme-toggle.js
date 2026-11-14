@@ -9,6 +9,9 @@ const isDark = () => root.dataset.theme === "dark";
 /* ---------- colour bar ---------- */
 
 const syncBar = () => {
+  for (const system of document.querySelectorAll('meta[name="theme-color"][media]'))
+    system.remove();
+
   let bar = document.querySelector('meta[name="theme-color"]:not([media])');
 
   if (!bar) {
@@ -27,23 +30,31 @@ const show = () => {
 
 /* ---------- toggle ---------- */
 
+const chosen = () => {
+  try {
+    return key ? localStorage.getItem(key) : null;
+  } catch {
+    return null;
+  }
+};
+
+const isChoice = (value) => value === "dark" || value === "light";
+
 if (toggle) {
+  let manual = null;
+
   toggle.addEventListener("click", () => {
-    root.dataset.theme = isDark() ? "light" : "dark";
+    manual = isDark() ? "light" : "dark";
+    root.dataset.theme = manual;
     try {
-      if (key) localStorage.setItem(key, root.dataset.theme);
+      if (key) localStorage.setItem(key, manual);
     } catch {}
     show();
   });
 
   systemDark.addEventListener("change", () => {
-    let stored = null;
+    if (isChoice(manual) || isChoice(chosen())) return;
 
-    try {
-      stored = key ? localStorage.getItem(key) : null;
-    } catch {}
-
-    if (stored) return;
     root.dataset.theme = systemDark.matches ? "dark" : "light";
     show();
   });

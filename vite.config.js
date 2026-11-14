@@ -1,11 +1,87 @@
+import { createHash } from "node:crypto";
+import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { defineConfig } from "vite";
 import injectHTML from "vite-plugin-html-inject";
 import { ALLOW_INDEXING, BASE_PATH, GOOGLE_SITE_VERIFICATION, SITE_URL } from "./site.config.js";
-import { captureIdentity } from "./scripts/identity-svg.js";
+import { bakeKit, captureIdentity, startDevServer } from "./scripts/identity-svg.js";
+import { walk } from "./scripts/lib/walk.js";
+import { drawings, wordmarks } from "./scripts/kit-files.js";
+import { kitProbe } from "./scripts/kit-probe.js";
+
+const stamp = () => {
+  const hash = createHash("sha1");
+
+  for (const dir of ["tools/identity", "src"])
+    for (const file of walk(dir).sort()) hash.update(file).update(readFileSync(file));
+
+  return hash.digest("hex");
+};
+
+function kit() {
+  let cache = null;
+  let signature = "";
+  let pending = null;
+
+  const build = () => {
+    const now = stamp();
+
+    if (cache && now === signature) return Promise.resolve(cache);
+    if (pending) return pending;
+
+    const task = (async () => {
+      const server = await startDevServer();
+
+      try {
+        cache = await bakeKit(server.port);
+        signature = now;
+      } finally {
+        server.stop();
+      }
+
+      return cache;
+    })();
+
+    pending = task.finally(() => {
+      pending = null;
+    });
+
+    return pending;
+  };
+
+  return {
+    name: "brand-kit",
+    apply: "serve",
+    configureServer(server) {
+      server.middlewares.use("/__kit", (request, response) => {
+        const theme = new URL(request.url, "http://localhost").searchParams.get("theme") ?? "light";
+
+        response.setHeader("Content-Type", "text/html");
+        response.end(kitProbe(theme, drawings, wordmarks));
+      });
+      server.middlewares.use("/stellarhex-brand-kit.zip", async (_request, response) => {
+        try {
+          const archive = await build();
+
+          response.setHeader("Content-Type", "application/zip");
+          response.setHeader(
+            "Content-Disposition",
+            'attachment; filename="stellarhex-brand-kit.zip"',
+          );
+          response.end(archive);
+        } catch (error) {
+          response.statusCode = 500;
+          response.setHeader("Content-Type", "text/plain");
+          response.end(`brand kit: ${error.message}`);
+        }
+      });
+    },
+  };
+}
 
 function identityInline() {
   let baked = null;
+  let archive = null;
 
   const fill = (html) => {
     if (!baked) return html;
@@ -38,7 +114,17 @@ function identityInline() {
     name: "identity-inline",
     apply: "build",
     async buildStart() {
-      baked = await captureIdentity();
+      const server = await startDevServer();
+
+      try {
+        baked = await captureIdentity(server.port);
+        archive = await bakeKit(server.port);
+      } finally {
+        server.stop();
+      }
+    },
+    writeBundle(options) {
+      writeFileSync(`${options.dir ?? "dist"}/stellarhex-brand-kit.zip`, archive);
     },
     transformIndexHtml: { order: "post", handler: fill },
   };
@@ -50,6 +136,7 @@ export default defineConfig(({ command, isPreview }) => ({
   /* ---------- html ---------- */
 
   plugins: [
+    kit(),
     identityInline(),
     {
       name: "site-html",

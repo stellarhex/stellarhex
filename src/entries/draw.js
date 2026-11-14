@@ -49,15 +49,6 @@ const drawHeroWord = (svg, word) => {
 
 /* ---------- marks ---------- */
 
-const plate = () =>
-  tag("polygon", {
-    points: points(hexagon(MIRROR.outline + MARK_CLEAR_SPACE)),
-    fill: "var(--mark-ground)",
-    stroke: "var(--color-rule)",
-    "stroke-width": ".5",
-    transform: "rotate(30)",
-  });
-
 const drawInto = (id, content) => {
   const holder = byId(id);
 
@@ -67,10 +58,20 @@ const drawInto = (id, content) => {
   holder.innerHTML = content;
 };
 
+const plate = () =>
+  tag("polygon", {
+    points: points(hexagon(MIRROR.outline + MARK_CLEAR_SPACE)),
+    fill: "var(--mark-ground)",
+    stroke: "var(--color-rule)",
+    "stroke-width": ".5",
+    transform: "rotate(30)",
+  });
+
 const drawMarks = () => {
-  MARKS.forEach((id) =>
-    drawInto(`mark-${id}`, plate() + STATE.mark("var(--color-brand, currentColor)")),
-  );
+  MARKS.forEach((id) => {
+    drawInto(`ground-${id}`, plate());
+    drawInto(`mark-${id}`, STATE.mark("var(--color-brand, currentColor)"));
+  });
   drawInto("seal-art", seal(STATE.mark()));
 };
 
