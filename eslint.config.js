@@ -28,7 +28,7 @@ export default [
     },
   },
   {
-    files: ["src/**/*.{js,mjs,cjs}", "public/**/*.{js,mjs,cjs}"],
+    files: ["src/**/*.{js,mjs,cjs}", "public/**/*.{js,mjs,cjs}", "tools/**/*.js"],
     languageOptions: {
       globals: { ...globals.browser },
     },

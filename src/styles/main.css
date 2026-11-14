@@ -3,12 +3,12 @@
 @import "./reset.css";
 @import "./fonts.css";
 @import "./tokens.css";
-@import "../components/hero/wordmark.css";
 @import "./layout.css";
 @import "./hex.css";
 @import "../components/logo/logo.css";
 @import "../components/hero/hero.css";
-@import "../components/anatomy/anatomy.css";
+@import "./section.css";
+@import "../components/lockups/lockups.css";
 @import "../components/nav/nav.css";
 @import "../components/theme-toggle/theme-toggle.css";
 @import "../components/footer/footer.css";

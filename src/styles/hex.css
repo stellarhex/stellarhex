@@ -34,8 +34,7 @@
 }
 
 @media (forced-colors: active) {
-  .hex:focus-visible,
-  .theme-toggle:focus-visible {
+  .hex:focus-visible {
     outline: 2px solid;
     outline-offset: 2px;
   }

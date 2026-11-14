@@ -8,6 +8,14 @@
   }
 
   .logo__mark {
+    display: grid;
+    place-items: center;
+    height: 100%;
+    aspect-ratio: 56.16 / 61.1;
+  }
+
+  .logo__mark > svg {
+    display: block;
     height: 100%;
     width: auto;
   }

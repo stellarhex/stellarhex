@@ -1,3 +1,5 @@
+/* ---------- year ---------- */
+
 const year = document.querySelector("[data-year]");
 
 if (year) {

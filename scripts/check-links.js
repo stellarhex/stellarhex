@@ -4,6 +4,8 @@ import { BASE_PATH, SITE_URL } from "../site.config.js";
 import { DIST, posixRelative } from "./lib/paths.js";
 import { walk } from "./lib/walk.js";
 
+/* ---------- pages ---------- */
+
 const root = DIST;
 const base = BASE_PATH.endsWith("/") ? BASE_PATH : `${BASE_PATH}/`;
 
@@ -14,6 +16,8 @@ const ids = new Map(
     new Set([...readFileSync(page, "utf8").matchAll(/\sid="([^"]+)"/g)].map((match) => match[1])),
   ]),
 );
+
+/* ---------- target ---------- */
 
 const problems = [];
 const report = (page, url, reason) => problems.push(`${page}: ${url} - ${reason}`);
@@ -52,6 +56,8 @@ const target = (page, url) => {
   if (hash && file.endsWith(".html") && !ids.get(file).has(hash))
     report(page, url, `#${hash} not found in ${pathname}`);
 };
+
+/* ---------- run ---------- */
 
 for (const page of pages) {
   const html = readFileSync(page, "utf8");

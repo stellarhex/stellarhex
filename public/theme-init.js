@@ -1,3 +1,5 @@
+/* ---------- theme ---------- */
+
 const key = document.currentScript?.dataset.themeKey;
 const systemDark = matchMedia("(prefers-color-scheme: dark)");
 

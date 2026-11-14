@@ -23,13 +23,14 @@
     gap: calc(var(--spacing) * 4);
   }
 
-  .hero__word {
-    --hero-word-cap: min(3.375rem, 100cqi / (var(--wordmark-ratio) + 2 * var(--wordmark-tail)));
-  }
-
   .hero__word > svg {
+    --cap: min(
+      3.375rem,
+      100cqi / (var(--ratio, var(--wordmark-ratio)) + 2 * var(--tail, var(--wordmark-tail)))
+    );
+
     display: block;
-    height: var(--hero-word-cap);
+    height: var(--cap);
     width: auto;
     overflow: visible;
   }

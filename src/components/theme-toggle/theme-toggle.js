@@ -1,8 +1,12 @@
+/* ---------- theme ---------- */
+
 const root = document.documentElement;
 const key = document.querySelector("script[data-theme-key]")?.dataset.themeKey;
 const toggle = document.querySelector(".theme-toggle");
 const systemDark = matchMedia("(prefers-color-scheme: dark)");
 const isDark = () => root.dataset.theme === "dark";
+
+/* ---------- colour bar ---------- */
 
 const syncBar = () => {
   let bar = document.querySelector('meta[name="theme-color"]:not([media])');
@@ -21,6 +25,8 @@ const show = () => {
   syncBar();
 };
 
+/* ---------- toggle ---------- */
+
 if (toggle) {
   toggle.addEventListener("click", () => {
     root.dataset.theme = isDark() ? "light" : "dark";
@@ -31,7 +37,13 @@ if (toggle) {
   });
 
   systemDark.addEventListener("change", () => {
-    if (key && localStorage.getItem(key)) return;
+    let stored = null;
+
+    try {
+      stored = key ? localStorage.getItem(key) : null;
+    } catch {}
+
+    if (stored) return;
     root.dataset.theme = systemDark.matches ? "dark" : "light";
     show();
   });

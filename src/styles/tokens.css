@@ -1,5 +1,6 @@
 :root {
   --color-night: #0d0f14;
+  --color-white: #ffffff;
   --color-night-soft: #a8b1c0;
   --color-brand: #f86848;
   --color-brand-ui: light-dark(#e8512f, var(--color-brand));
@@ -29,4 +30,20 @@
 
   --tracking-tight: -0.025em;
   --tracking-widest: 0.1em;
+
+  --layout-tick: 10px;
+  --ink-line: linear-gradient(var(--color-ink-muted), var(--color-ink-muted));
+  --rule-line: linear-gradient(var(--color-rule), var(--color-rule));
+  --pattern-frame:
+    var(--ink-line) left top / var(--layout-tick) 1px no-repeat,
+    var(--ink-line) left top / 1px var(--layout-tick) no-repeat,
+    var(--ink-line) right top / var(--layout-tick) 1px no-repeat,
+    var(--ink-line) right top / 1px var(--layout-tick) no-repeat,
+    var(--ink-line) left bottom / var(--layout-tick) 1px no-repeat,
+    var(--ink-line) left bottom / 1px var(--layout-tick) no-repeat,
+    var(--ink-line) right bottom / var(--layout-tick) 1px no-repeat,
+    var(--ink-line) right bottom / 1px var(--layout-tick) no-repeat,
+    var(--rule-line) left top / 100% 1px no-repeat,
+    var(--rule-line) left bottom / 100% 1px no-repeat,
+    var(--rule-line) left top / 1px 100% no-repeat, var(--rule-line) right top / 1px 100% no-repeat;
 }

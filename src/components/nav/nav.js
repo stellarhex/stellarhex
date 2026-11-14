@@ -1,3 +1,5 @@
+/* ---------- nav ---------- */
+
 const SQRT3 = Math.sqrt(3);
 const clamp01 = (t) => Math.max(0, Math.min(1, t));
 const progress = (t, [start, length]) => clamp01((t - start) / length);
@@ -9,6 +11,8 @@ const links = [...document.querySelectorAll(".nav__link")];
 const host = document.querySelector(".topbar");
 const nav = document.querySelector(".nav");
 const reach = document.querySelector(".page");
+
+/* ---------- fold ---------- */
 
 if (host && nav && reach && links.length > 1) initFold();
 

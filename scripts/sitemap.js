@@ -3,6 +3,8 @@ import { SITE_URL } from "../site.config.js";
 import { DIST, posixRelative } from "./lib/paths.js";
 import { walk } from "./lib/walk.js";
 
+/* ---------- pages ---------- */
+
 const root = DIST;
 const escapeXml = (value) =>
   value
@@ -17,6 +19,8 @@ const pages = walk(root)
   .map((file) => posixRelative(root, file).replace(/index\.html$/, ""))
   .filter((path) => path !== "404.html")
   .sort();
+
+/* ---------- write ---------- */
 
 writeFileSync(
   `${root}/sitemap.xml`,

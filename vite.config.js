@@ -6,6 +6,8 @@ import { ALLOW_INDEXING, BASE_PATH, GOOGLE_SITE_VERIFICATION, SITE_URL } from ".
 export default defineConfig(({ command, isPreview }) => ({
   base: command === "build" || isPreview ? BASE_PATH : "/",
   appType: "mpa",
+  /* ---------- html ---------- */
+
   plugins: [
     {
       name: "site-html",
@@ -30,10 +32,14 @@ export default defineConfig(({ command, isPreview }) => ({
     },
     injectHTML({ tagName: "include" }),
   ],
+  /* ---------- server ---------- */
+
   server: {
     port: 8188,
     strictPort: true,
   },
+  /* ---------- build ---------- */
+
   build: {
     rolldownOptions: {
       input: {

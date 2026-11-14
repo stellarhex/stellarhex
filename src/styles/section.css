@@ -1,0 +1,142 @@
+@layer components {
+  .section {
+    display: grid;
+    align-content: start;
+    gap: calc(var(--spacing) * 10);
+  }
+
+  .section__head {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: baseline;
+    justify-items: start;
+    gap: calc(var(--spacing) * 1) calc(var(--spacing) * 2);
+  }
+
+  .section__number {
+    grid-row: 1;
+    font-size: var(--text-3xl);
+    line-height: var(--leading-tight);
+    color: var(--color-ink-muted);
+  }
+
+  .section__title {
+    grid-row: 1;
+    font-size: var(--text-3xl);
+    font-weight: 500;
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
+    text-wrap: balance;
+  }
+
+  .section__lead {
+    grid-column: 1 / -1;
+    max-width: 46ch;
+    margin-top: calc(var(--spacing) * 2);
+    font-size: var(--text-sm);
+    line-height: var(--leading-snug);
+    color: var(--color-ink-muted);
+  }
+
+  .section--mark {
+    --columns: 1;
+  }
+
+  @media (width >= 48rem) {
+    .section--mark {
+      --columns: 3;
+    }
+  }
+
+  .section__body {
+    display: grid;
+    gap: calc(var(--spacing) * 6);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(var(--columns, 1), minmax(0, 1fr));
+    gap: calc(var(--spacing) * 6);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .plate {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    gap: calc(var(--spacing) * 6);
+    margin: 0;
+    padding: calc(var(--spacing) * 6);
+    background: var(--pattern-frame);
+  }
+
+  .plate__art {
+    display: block;
+    height: auto;
+    overflow: visible;
+  }
+
+  .plate__caption {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-content: end;
+    gap: calc(var(--spacing) * 1);
+  }
+
+  .plate__name {
+    margin: 0;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    line-height: var(--leading-snug);
+  }
+
+  .plate__note {
+    font-size: var(--text-sm);
+    line-height: 1.45;
+    color: var(--color-ink-muted);
+  }
+
+  .plate--mark {
+    --mark-ground: var(--color-ground);
+  }
+
+  .plate--white {
+    --color-brand: var(--color-white);
+    --mark-ground: var(--color-night);
+  }
+
+  .plate--black {
+    --color-brand: var(--color-night);
+    --mark-ground: light-dark(var(--color-ground), var(--color-white));
+  }
+
+  .plate--mark .plate__art {
+    align-self: center;
+    justify-self: center;
+    width: min(60%, 11.875rem);
+  }
+
+  .plate--seal {
+    grid-template-rows: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .plate--seal .plate__art {
+    align-self: center;
+    justify-self: center;
+    width: min(70%, 26.25rem);
+  }
+
+  .plate--sheet {
+    grid-template-rows: auto;
+    overflow-x: auto;
+  }
+
+  .plate--sheet .plate__art {
+    width: 100%;
+    min-width: 40rem;
+    max-width: 56rem;
+    margin-inline: auto;
+  }
+}

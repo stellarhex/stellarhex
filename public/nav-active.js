@@ -1,3 +1,5 @@
+/* ---------- nav ---------- */
+
 const page = document.body?.dataset.page;
 
 if (page)

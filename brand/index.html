@@ -5,34 +5,46 @@
     <title>Brand · StellarHex identity system</title>
     <meta
       name="description"
-      content="One mark, three colorways, built on the optics of a segmented mirror."
+      content="The StellarHex identity: one mark in three colourways, built on the optics of a segmented mirror."
     />
     <link rel="canonical" href="%SITE_URL%brand/" />
     <meta property="og:url" content="%SITE_URL%brand/" />
     <meta property="og:title" content="Brand · StellarHex identity system" />
     <meta
       property="og:description"
-      content="One mark, three colorways, built on the optics of a segmented mirror."
+      content="The StellarHex identity: one mark in three colourways, built on the optics of a segmented mirror."
     />
   </head>
-  <body data-page="brand">
+  <body id="top" data-page="brand">
     <include src="src/html/header.html" />
-    <section class="hero" aria-label="Brand">
+
+    <section class="hero" id="cover" aria-label="StellarHex">
       <div class="hero__inner">
         <div class="hero__text">
-          <h1 class="visually-hidden">Brand</h1>
           <div class="hero__word">
-            <include src="src/components/hero/wordmark.svg" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              id="cover-word"
+              role="img"
+              aria-label="StellarHex"
+            ></svg>
           </div>
           <span class="hero__motto">Out of many · one light</span>
         </div>
       </div>
     </section>
+
     <div class="page">
-      <main id="content" class="page__main" tabindex="-1">
+      <main class="page__main" id="content" tabindex="-1">
+        <h1 class="visually-hidden">StellarHex identity system</h1>
+
+        <include src="src/components/mark/mark.html" />
+        <include src="src/components/seal/seal.html" />
+        <include src="src/components/lockups/lockups.html" />
         <include src="src/components/anatomy/anatomy.html" />
       </main>
     </div>
+
     <include src="src/components/footer/footer.html" />
   </body>
 </html>
