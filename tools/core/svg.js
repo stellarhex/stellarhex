@@ -18,6 +18,13 @@ export const points = (corners) => {
     list += `${i ? " " : ""}${fixed(corners[i][0])},${fixed(corners[i][1])}`;
   return list;
 };
+export const pointsOf = (buffer, offset, count) => {
+  let list = "";
+  for (let c = 0; c < count; c++)
+    list += `${c ? " " : ""}${fixed(buffer[offset + 3 * c])},${fixed(buffer[offset + 3 * c + 1])}`;
+  return list;
+};
+
 export function tag(name, attributes = {}, content) {
   const attrs = Object.entries(attributes)
     .filter(([, value]) => value != null && value !== false)
@@ -50,10 +57,9 @@ export function inkBox(markup) {
   for (const element of wrapper.querySelectorAll('[stroke]:not([stroke="none"], mask *)')) {
     const place = toGroup.multiply(element.getCTM()),
       { x, y, width, height } = element.getBBox();
-    const stroke = Number(element.getAttribute("stroke-width")),
-      half =
-        ((Number.isFinite(stroke) ? stroke : 1) / 2) *
-        Math.sqrt(Math.abs(place.a * place.d - place.b * place.c));
+    const half =
+      ((+element.getAttribute("stroke-width") || 1) / 2) *
+      Math.sqrt(Math.abs(place.a * place.d - place.b * place.c));
     for (const [px, py] of [
       [x, y],
       [x + width, y],

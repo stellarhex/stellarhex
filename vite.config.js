@@ -9,10 +9,12 @@ import { walk } from "./scripts/lib/walk.js";
 import { drawings, wordmarks } from "./scripts/kit-files.js";
 import { kitProbe } from "./scripts/kit-probe.js";
 
+/* ---------- kit ---------- */
+
 const stamp = () => {
   const hash = createHash("sha1");
 
-  for (const dir of ["tools/identity", "src"])
+  for (const dir of ["tools", "src"])
     for (const file of walk(dir).sort()) hash.update(file).update(readFileSync(file));
 
   return hash.digest("hex");
@@ -78,6 +80,8 @@ function kit() {
     },
   };
 }
+
+/* ---------- identity ---------- */
 
 function identityInline() {
   let baked = null;

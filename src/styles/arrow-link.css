@@ -1,0 +1,20 @@
+@layer components {
+  .arrow-link {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(var(--spacing) * 1.5);
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .arrow-link__icon {
+    flex-shrink: 0;
+    width: calc(var(--spacing) * 2.5);
+    height: calc(var(--spacing) * 2.5);
+    transition: translate var(--duration);
+
+    .arrow-link:hover & {
+      translate: calc(var(--spacing) / 2) calc(var(--spacing) / -2);
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { SQRT3, apothem, onCircle, fixed, short, once } from "./core/math.js";
+import { SQRT3, apothem, onCircle, fixed, short, once } from "../core/math.js";
 import {
   SVG_NS,
   MARK_HALF,
@@ -8,7 +8,7 @@ import {
   tag,
   uniqueId,
   inkBox,
-} from "./core/svg.js";
+} from "../core/svg.js";
 
 /* ---------- mark ---------- */
 
@@ -84,8 +84,12 @@ function cutStruts(content) {
 
 export const STATE = { name: "Aperture", mark: (ink) => cutStruts(drawSegments(ink)) };
 
-export const markSvg = (content, viewBox = squareBox(MARK_HALF)) =>
-  tag("svg", { xmlns: SVG_NS, viewBox, "aria-hidden": "true", focusable: "false" }, content);
+export const markSvg = (content, className, viewBox = squareBox(MARK_HALF)) =>
+  tag(
+    "svg",
+    { xmlns: SVG_NS, class: className, viewBox, "aria-hidden": "true", focusable: "false" },
+    content,
+  );
 
 export const markBox = once(() => inkBox(STATE.mark()));
 

@@ -2,11 +2,7 @@
   .mission {
     display: grid;
     align-content: start;
-    gap: calc(var(--spacing) * 8);
-
-    @media (width >= 48rem) {
-      gap: calc(var(--spacing) * 6);
-    }
+    gap: calc(var(--spacing) * 6);
   }
 
   .mission__head {
@@ -52,7 +48,7 @@
   }
 
   .mission__title {
-    font-size: var(--text-2xl);
+    font-size: var(--text-xl);
     font-weight: 500;
     line-height: var(--leading-snug);
     letter-spacing: var(--tracking-tight);
@@ -66,18 +62,16 @@
   .mission__principles {
     display: grid;
     gap: calc(var(--spacing) * 5);
+    padding-top: calc(var(--spacing) * 6);
+    background: var(--pattern-rule-x);
 
     @media (width < 48rem) {
-      padding: calc(var(--spacing) * 5);
-      background: var(--pattern-frame);
       counter-reset: principle;
     }
 
     @media (width >= 48rem) {
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: calc(var(--spacing) * 6);
-      padding-top: calc(var(--spacing) * 6);
-      background: var(--pattern-rule-x);
     }
   }
 
@@ -86,13 +80,14 @@
     gap: calc(var(--spacing) * 2);
 
     @media (width < 48rem) {
-      grid-template-columns: auto minmax(0, 1fr);
-      column-gap: calc(var(--spacing) * 2);
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: baseline;
       counter-increment: principle;
 
-      &::before {
+      &::after {
         content: counter(principle, decimal-leading-zero);
-        font-size: var(--text-base);
+        grid-area: 1 / 2;
+        font-size: var(--text-xs);
         color: var(--color-ink-muted);
       }
 
@@ -103,7 +98,7 @@
     }
   }
 
-  .mission__principle::before,
+  .mission__principle::after,
   .mission__name {
     font-family: var(--font-mono);
     line-height: var(--leading-snug);
@@ -111,7 +106,7 @@
   }
 
   .mission__name {
-    font-size: var(--text-base);
+    font-size: var(--text-sm);
     font-weight: 500;
     text-transform: uppercase;
 
@@ -127,7 +122,7 @@
     text-wrap: pretty;
 
     @media (width < 48rem) {
-      grid-column: 2;
+      grid-column: 1 / -1;
     }
   }
 }

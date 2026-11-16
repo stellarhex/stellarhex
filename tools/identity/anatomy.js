@@ -8,8 +8,8 @@ import {
   fixed,
   short,
   once,
-} from "./core/math.js";
-import { hexagon, points, tag } from "./core/svg.js";
+} from "../core/math.js";
+import { hexagon, points, tag } from "../core/svg.js";
 import { NAME } from "./brand.js";
 import { MONO, monoAdvance } from "./mono.js";
 import { inUnits, MIRROR, STATE } from "./mark.js";

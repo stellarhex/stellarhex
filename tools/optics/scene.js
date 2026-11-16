@@ -1,0 +1,102 @@
+/* ---------- camera ---------- */
+
+export const CAMERA = { depth: 5 };
+
+/* ---------- mirror ---------- */
+
+export const MIRROR_LAYOUT = {
+  point: 3,
+  corners: 6,
+  face: 6 * 3,
+  wall: 4 * 3,
+  stripe: 4,
+  shadow: 5,
+  strut: 2 * 5,
+};
+
+export const SOLID = {
+  sag: 4,
+  thickness: 2.4,
+  apex: 13,
+  secondary: 2.6,
+  tilt: 6,
+  yaw: 16,
+  pitch: 11,
+  period: 10,
+  rise: 2,
+  sun: [-0.45, -0.6, 1],
+  wave: {
+    pitch: 22,
+    crests: 0.4,
+    density: [0.8, 1.6],
+    breath: 0.15,
+    wander: 0.35,
+    tempo: [0.31, 0.23],
+    cycle: 24,
+    trough: -0.14,
+    crest: 0.03,
+  },
+  flash: { lift: 0.22, decay: 0.5 },
+  shadow: [0.15, 1.3],
+  wall: [-0.2, 0.1],
+  bevel: [0.25, 0.08],
+  edgeOn: 0.02,
+};
+
+/* ---------- halo ---------- */
+
+export const HALO = {
+  particles: 1000,
+  drift: 0.22,
+  core: 1.1,
+  coreWidth: 0.4,
+  pace: [0.9, 1.15],
+  far: 0.35,
+  rate: 60,
+  slack: 2,
+  longest: 0.05,
+  density: 1.5,
+  inner: 1.3,
+  margin: 2,
+  view: 58,
+  roll: -8,
+  sway: 2.5,
+  swayPeriod: 24,
+  incline: 20,
+  precession: 0.04,
+  peakSamples: 100,
+  wave: { crests: 6, amplitude: 0.012, speed: 0.3 },
+  line: [0.6, 1.8],
+  depths: 3,
+  shades: 3,
+  trail: 20,
+  spacing: 1 / 60,
+  fade: 0.845,
+  veil: 0.14,
+  bands: [
+    [-0.3, 0.08, 1],
+    [0.05, 0.12, 0.8],
+    [0.38, 0.06, 0.6],
+  ],
+  gap: [0.2, 0.03, 0.9],
+  floor: 0.3,
+  capture: {
+    period: 7,
+    count: 21,
+    pool: 160,
+    front: 0.3,
+    fall: 2,
+    hop: 0.3,
+    back: 1.4,
+    peel: 0.35,
+    tangent: 0.1,
+    width: [1.8, 1.1],
+    head: 1.4,
+    headAlpha: 0.9,
+    lifts: [0.02, 0.07, 0.13, 0.2],
+    star: 18,
+    rays: [2.6, 1],
+    decay: 1.4,
+    full: 6,
+  },
+};

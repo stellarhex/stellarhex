@@ -1,4 +1,4 @@
-import { tag } from "./core/svg.js";
+import { tag } from "../core/svg.js";
 
 /* ---------- mono ---------- */
 

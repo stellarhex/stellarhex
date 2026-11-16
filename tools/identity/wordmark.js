@@ -1,5 +1,5 @@
-import { fixed } from "./core/math.js";
-import { tag, inkBox } from "./core/svg.js";
+import { fixed } from "../core/math.js";
+import { tag, inkBox } from "../core/svg.js";
 import { NAME } from "./brand.js";
 import { sparkCurves } from "./mark.js";
 
@@ -385,6 +385,8 @@ export function letterforms({ stroke: w, width: f, star = true }) {
   };
 }
 
+/* ---------- spacing ---------- */
+
 export const SPACING = { depth: 0.15, rows: 250 };
 export const KERNING = { HE: -0.08 };
 const airs = {};
@@ -441,6 +443,8 @@ function layWord(lettering) {
   });
   return { width: cursor, axis, d, starts };
 }
+
+/* ---------- word ---------- */
 
 export const WORDMARK = layWord(LETTERING);
 

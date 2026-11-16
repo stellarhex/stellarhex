@@ -8,6 +8,7 @@
 @import "./section.css";
 @import "./grid.css";
 @import "./plate.css";
+@import "./arrow-link.css";
 @import "../components/logo/logo.css";
 @import "../components/hero/hero.css";
 @import "../components/mark/mark.css";

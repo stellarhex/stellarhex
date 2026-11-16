@@ -1,5 +1,6 @@
-import { fixed } from "../../tools/identity/core/math.js";
-import { MARK_HALF, squareBox, hexagon, points, tag } from "../../tools/identity/core/svg.js";
+import { fixed } from "../../tools/core/math.js";
+import { byId, set } from "../../tools/core/dom.js";
+import { MARK_HALF, squareBox, hexagon, points, tag } from "../../tools/core/svg.js";
 import { MARKS } from "../../tools/identity/brand.js";
 import { MARK_CLEAR_SPACE, MIRROR, STATE, markBox, markSvg } from "../../tools/identity/mark.js";
 import { seal } from "../../tools/identity/seal.js";
@@ -13,10 +14,6 @@ import {
   lockupView,
 } from "../../tools/identity/lockup.js";
 
-const byId = (id) => document.getElementById(id);
-const set = (element, attributes) => {
-  for (const name in attributes) element.setAttribute(name, attributes[name]);
-};
 const into = (id, write) => {
   const element = byId(id);
 
@@ -30,6 +27,7 @@ const drawBrandMark = (holder) => {
 
   holder.innerHTML = markSvg(
     STATE.mark(),
+    undefined,
     [ink.x, ink.y, ink.width, ink.height].map(fixed).join(" "),
   );
 };
@@ -42,7 +40,7 @@ const drawHeroWord = (svg, word) => {
   set(svg, {
     viewBox: wordView(word),
     overflow: "visible",
-    style: `--ratio: ${fixed(word.width)}; --tail: ${fixed((x + width) / 100 - word.width)}`,
+    style: `--ratio: ${fixed(word.width)}; --tail: ${fixed((x + width) / 100 - word.width)}; --axis: ${fixed(word.axis)}`,
   });
   svg.innerHTML = wordmark(0, 0, 100, "currentColor", word);
 };
@@ -124,7 +122,7 @@ const drawSections = () => {
 
 export function drawIdentity() {
   into("brand-mark", drawBrandMark);
-  into("cover-word", (svg) => drawHeroWord(svg, WORDMARK));
+  into("hero-word", (svg) => drawHeroWord(svg, WORDMARK));
   drawLockup("footer-lockup", "stacked");
   if (byId("marks-section")) drawSections();
 }

@@ -2,6 +2,7 @@
 
 export const SQRT3 = Math.sqrt(3);
 export const apothem = (radius) => (radius * SQRT3) / 2;
+export const clamp01 = (t) => Math.max(0, Math.min(1, t));
 
 export const radians = (deg) => (deg * Math.PI) / 180;
 export const degrees = (rad) => (rad * 180) / Math.PI;
@@ -13,6 +14,13 @@ export const onCircle = (radius, angle) => [
 
 export const fixed = (value) => value.toFixed(2);
 export const short = (value) => String(+value.toFixed(2));
+
+export const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+
+export function seeded(seed) {
+  let state = seed;
+  return () => (state = (state * 16807) % 2147483647) / 2147483647;
+}
 
 export const once = (make) => {
   let value;

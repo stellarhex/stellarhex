@@ -123,12 +123,6 @@
   }
 
   .footer__link {
-    display: inline-flex;
-    align-items: center;
-    gap: calc(var(--spacing) * 1.5);
-    color: var(--color-ink);
-    text-decoration: none;
-
     @media (width < 48rem) {
       min-height: var(--layout-tap);
     }
@@ -137,17 +131,6 @@
       grid-column: 3;
       grid-row: 1;
       justify-self: end;
-    }
-  }
-
-  .footer__link-icon {
-    flex-shrink: 0;
-    width: calc(var(--spacing) * 2.5);
-    height: calc(var(--spacing) * 2.5);
-    transition: translate var(--duration);
-
-    .footer__link:hover & {
-      translate: calc(var(--spacing) / 2) calc(var(--spacing) / -2);
     }
   }
 }

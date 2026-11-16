@@ -8,6 +8,7 @@
   --layout-hero: 70svh;
   --layout-block-pad: calc(var(--spacing) * 28);
   --layout-hero-pad: calc(var(--spacing) * 8);
+  --layout-hero-stage: calc(var(--layout-hero) - var(--layout-topbar) - 2 * var(--layout-hero-pad));
   --layout-footer-pad: calc(var(--spacing) * 20);
   --layout-brand: calc(var(--spacing) * 12);
   --layout-side: calc((100% - var(--layout-sheet)) / 2);
@@ -40,7 +41,7 @@
     --layout-page-bottom: calc(var(--spacing) * 12);
     --layout-footer-pad: calc(var(--spacing) * 12);
     --layout-hex-width: calc(var(--spacing) * 9.5);
-    --layout-hero: min(56svh, 30rem);
+    --layout-hero: 100svh;
     --layout-hero-pad: calc(var(--spacing) * 6);
   }
 

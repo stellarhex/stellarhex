@@ -1,16 +1,23 @@
-<section class="hero" id="top" aria-label="StellarHex">
+<section class="hero hero--cover" id="top" aria-label="StellarHex">
+  <h1 class="visually-hidden">StellarHex</h1>
   <div class="hero__inner">
-    <div class="hero__text">
-      <h1 class="visually-hidden">StellarHex</h1>
-      <div class="hero__word">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          id="cover-word"
-          role="img"
-          aria-label="StellarHex"
-        ></svg>
+    <include src="src/components/hero/stage.html" />
+    <div class="hero__statement">
+      <h2 class="hero__title">
+        We study complex systems. <span class="hero__accent">We build on evidence.</span>
+      </h2>
+      <div class="hero__copy">
+        <p>
+          StellarHex is an independent research and technology company. The questions worth pursuing
+          rarely belong to one discipline, and&nbsp;neither does our work.
+        </p>
+        <p>What we learn becomes methods, software, and technology.</p>
       </div>
-      <span class="hero__motto">Out of many · one light</span>
+      <a class="hero__link arrow-link" href="mailto:contact@stellarhex.com"
+        >contact@stellarhex.com<svg class="arrow-link__icon" viewBox="0 0 10 10" aria-hidden="true">
+          <path d="M2 8L8 2M3.5 2H8v4.5" fill="none" stroke="currentColor" stroke-width="1.4" />
+        </svg>
+      </a>
     </div>
   </div>
 </section>

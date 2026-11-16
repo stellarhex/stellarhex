@@ -10,7 +10,7 @@ const page = "/brand/";
 
 const baked = [
   "brand-mark",
-  "cover-word",
+  "hero-word",
   "ground-brand",
   "ground-white",
   "ground-black",

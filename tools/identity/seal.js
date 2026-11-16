@@ -1,5 +1,5 @@
-import { radians, degrees, onCircle, fixed } from "./core/math.js";
-import { tag } from "./core/svg.js";
+import { radians, degrees, onCircle, fixed } from "../core/math.js";
+import { tag } from "../core/svg.js";
 import { NAME, MOTTO } from "./brand.js";
 import { monoAdvance, glyph, STELLARHEX_MONO } from "./mono.js";
 import { BRAND, spark } from "./mark.js";

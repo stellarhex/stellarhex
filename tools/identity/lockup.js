@@ -1,5 +1,5 @@
-import { fixed } from "./core/math.js";
-import { SVG_NS, inkBox } from "./core/svg.js";
+import { fixed } from "../core/math.js";
+import { SVG_NS, inkBox } from "../core/svg.js";
 import { MODULE, STATE, markBox } from "./mark.js";
 import { WORDMARK, wordmark, wordSvg } from "./wordmark.js";
 

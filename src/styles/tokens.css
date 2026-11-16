@@ -41,15 +41,16 @@
   --asset-spark: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 15 15'><path d='M7.5 2C8.05 5.96 9.04 6.95 13 7.5C9.04 8.05 8.05 9.04 7.5 13C6.95 9.04 5.96 8.05 2 7.5C5.96 6.95 6.95 5.96 7.5 2Z'/></svg>");
   --ink-line: linear-gradient(var(--color-ink-muted), var(--color-ink-muted));
   --rule-line: linear-gradient(var(--color-rule), var(--color-rule));
-  --pattern-ticks:
-    var(--ink-line) left top / var(--layout-tick) 1px no-repeat,
-    var(--ink-line) left top / 1px var(--layout-tick) no-repeat,
-    var(--ink-line) right top / var(--layout-tick) 1px no-repeat,
-    var(--ink-line) right top / 1px var(--layout-tick) no-repeat,
+  --pattern-ticks-bottom:
     var(--ink-line) left bottom / var(--layout-tick) 1px no-repeat,
     var(--ink-line) left bottom / 1px var(--layout-tick) no-repeat,
     var(--ink-line) right bottom / var(--layout-tick) 1px no-repeat,
     var(--ink-line) right bottom / 1px var(--layout-tick) no-repeat;
+  --pattern-ticks:
+    var(--ink-line) left top / var(--layout-tick) 1px no-repeat,
+    var(--ink-line) left top / 1px var(--layout-tick) no-repeat,
+    var(--ink-line) right top / var(--layout-tick) 1px no-repeat,
+    var(--ink-line) right top / 1px var(--layout-tick) no-repeat, var(--pattern-ticks-bottom);
   --pattern-frame:
     var(--pattern-ticks), var(--rule-line) left top / 100% 1px no-repeat,
     var(--rule-line) left bottom / 100% 1px no-repeat,

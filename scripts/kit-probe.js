@@ -27,7 +27,7 @@ frame.addEventListener("load", () => {
       return box.width > 0 && box.height > 0;
     };
 
-    return Object.keys(${JSON.stringify(drawings)}).every(drawn) && drawn("cover-word");
+    return Object.keys(${JSON.stringify(drawings)}).every(drawn) && drawn("hero-word");
   };
 
   const start = Date.now();
@@ -122,7 +122,7 @@ frame.addEventListener("load", () => {
       if (id.startsWith("mark-")) out[name + "-square"] = standalone(svg, name + "-square", ink, true);
     }
 
-    const word = page.getElementById("cover-word");
+    const word = page.getElementById("hero-word");
 
     if (word)
       for (const [token, tone] of ${JSON.stringify(wordmarks)}) {
