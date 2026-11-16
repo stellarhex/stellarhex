@@ -87,6 +87,14 @@ const drawSheets = () =>
 
 /* ---------- lockups ---------- */
 
+const drawLockup = (id, layout) =>
+  into(id, (art) => {
+    const plan = lockupLayout(layout);
+
+    set(art, lockupView(plan));
+    art.innerHTML = lockupPage(plan);
+  });
+
 const drawLockups = () =>
   Object.keys(LOCKUP).forEach((layout) => {
     const plan = lockupLayout(layout),
@@ -101,10 +109,7 @@ const drawLockups = () =>
     into(`facts-${layout}`, (element) => {
       element.innerHTML = facts.map((fact) => `<span>${fact}</span>`).join("");
     });
-    into(`lockup-${layout}`, (art) => {
-      set(art, lockupView(plan));
-      art.innerHTML = lockupPage(plan);
-    });
+    drawLockup(`lockup-${layout}`, layout);
   });
 
 /* ---------- sections ---------- */
@@ -120,5 +125,6 @@ const drawSections = () => {
 export function drawIdentity() {
   into("brand-mark", drawBrandMark);
   into("cover-word", (svg) => drawHeroWord(svg, WORDMARK));
+  drawLockup("footer-lockup", "stacked");
   if (byId("marks-section")) drawSections();
 }

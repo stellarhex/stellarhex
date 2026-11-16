@@ -4,12 +4,11 @@
   --layout-frame: 8.75rem;
   --layout-topbar: calc(var(--spacing) * 20);
   --layout-page-gap: calc(var(--spacing) * 12);
-  --layout-hero: 70vh;
+  --layout-page-bottom: calc(var(--spacing) * 20);
+  --layout-hero: 70svh;
   --layout-block-pad: calc(var(--spacing) * 28);
   --layout-hero-pad: calc(var(--spacing) * 8);
-  --layout-grid-gap: calc(var(--spacing) * 6);
   --layout-footer-pad: calc(var(--spacing) * 20);
-  --layout-footer-gap: calc(var(--spacing) * 8);
   --layout-brand: calc(var(--spacing) * 12);
   --layout-side: calc((100% - var(--layout-sheet)) / 2);
   --layout-band: min(var(--layout-frame), var(--layout-side));
@@ -30,33 +29,23 @@
   --layout-sheet: min(var(--layout-column), 100% - 2 * var(--layout-gutter));
   --layout-dash: 32px;
   --layout-hairline: 1px;
-  --pattern-dash-x: linear-gradient(to right, var(--color-rule) 50%, transparent 0);
-  --pattern-dash-y: linear-gradient(var(--color-rule) 50%, transparent 0);
+  --layout-tick: 10px;
   --layout-spark-size: 15px;
   --layout-spark-at: calc((var(--layout-hairline) - var(--layout-spark-size)) / 2);
-  --asset-spark: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 15 15'><path d='M7.5 2C8.05 5.96 9.04 6.95 13 7.5C9.04 8.05 8.05 9.04 7.5 13C6.95 9.04 5.96 8.05 2 7.5C5.96 6.95 6.95 5.96 7.5 2Z'/></svg>");
-}
 
-@supports (height: 100svh) {
-  :root {
-    --layout-hero: 70svh;
-  }
-}
-
-@media (width < 48rem) {
-  :root {
+  @media (width < 48rem) {
     --layout-brand: calc(var(--spacing) * 8);
-    --layout-topbar: calc(var(--spacing) * 14);
+    --layout-topbar: calc(var(--spacing) * 16);
     --layout-page-gap: calc(var(--spacing) * 8);
-    --layout-footer-pad: calc(var(--spacing) * 3);
-    --layout-footer-gap: calc(var(--spacing) * 6);
+    --layout-page-bottom: calc(var(--spacing) * 12);
+    --layout-footer-pad: calc(var(--spacing) * 12);
     --layout-hex-width: calc(var(--spacing) * 9.5);
-    --layout-hero-pad: calc(var(--spacing) * 10);
+    --layout-hero: min(56svh, 30rem);
+    --layout-hero-pad: calc(var(--spacing) * 6);
   }
-}
 
-@media (width >= 48rem) {
-  :root {
+  @media (width >= 48rem) {
+    --layout-page-bottom: calc(var(--spacing) * 16);
     --layout-gutter: calc(var(--spacing) * 6);
     --layout-brand-inset: max(0px, var(--layout-axis) - var(--layout-brand) / 2);
     --layout-toggle-inset: max(
@@ -64,17 +53,32 @@
       calc(var(--layout-axis) - var(--layout-hex-width) / 2)
     );
   }
-}
 
-@media (width >= 80rem) {
-  :root {
+  @media (width >= 80rem) {
+    --layout-page-bottom: calc(var(--spacing) * 20);
     --layout-gutter: calc(var(--spacing) * 8);
   }
 }
 
 @layer base {
   :root {
+    color-scheme: light dark;
     overflow-x: clip;
+
+    &[data-theme="light"] {
+      color-scheme: light;
+    }
+
+    &[data-theme="dark"] {
+      color-scheme: dark;
+    }
+
+    @media print {
+      &,
+      &[data-theme] {
+        color-scheme: light;
+      }
+    }
   }
 
   .visually-hidden {
@@ -92,12 +96,15 @@
   body {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
     min-height: 100svh;
     position: relative;
     padding-top: var(--layout-topbar);
     padding-inline: env(safe-area-inset-left, 0px) env(safe-area-inset-right, 0px);
-    overflow-x: clip;
+    background: var(--color-ground);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss03";
+    font-variant-numeric: tabular-nums;
 
     &::before,
     &::after {
@@ -111,6 +118,10 @@
       background:
         var(--pattern-dash-y) left top / var(--layout-hairline) var(--layout-dash) repeat-y,
         var(--pattern-dash-y) right top / var(--layout-hairline) var(--layout-dash) repeat-y;
+
+      @media (width >= 48rem) {
+        display: block;
+      }
     }
 
     &::before {
@@ -122,24 +133,20 @@
       left: calc(50% - var(--layout-sheet) / 2 - var(--layout-frame));
       width: calc(var(--layout-sheet) + 2 * var(--layout-frame));
     }
-  }
 
-  @media (width >= 48rem) {
-    body::before,
-    body::after {
-      display: block;
+    @media print {
+      background: #fff;
+      color: #000;
+
+      &::before,
+      &::after {
+        display: none;
+      }
     }
   }
 }
 
 @layer components {
-  .icon {
-    position: relative;
-    z-index: 1;
-    width: var(--layout-icon);
-    height: var(--layout-icon);
-  }
-
   .skip-link {
     position: absolute;
     left: -9999px;
@@ -160,26 +167,49 @@
     top: 0;
     z-index: 2;
     height: var(--layout-topbar);
-  }
 
-  .topbar .theme-toggle {
-    position: absolute;
-    z-index: 2;
-    top: calc(var(--layout-bar-middle) - var(--layout-hex-height) / 2);
-    right: var(--layout-toggle-inset);
-  }
+    & .logo {
+      position: absolute;
+      top: calc(var(--layout-bar-middle) - var(--layout-brand) / 2);
+      left: var(--layout-brand-inset);
+    }
 
-  .topbar .nav {
-    position: fixed;
-    top: calc(var(--layout-bar-middle) - var(--layout-hex-height) / 2);
-    right: calc(var(--layout-toggle-inset) + var(--layout-hex-stride));
-    z-index: 1;
-  }
+    & .nav {
+      position: fixed;
+      top: calc(var(--layout-bar-middle) - var(--layout-hex-height) / 2);
+      right: calc(var(--layout-toggle-inset) + var(--layout-hex-stride));
+      z-index: 1;
+    }
 
-  .topbar .logo {
-    position: absolute;
-    top: calc(var(--layout-bar-middle) - var(--layout-brand) / 2);
-    left: var(--layout-brand-inset);
+    & .theme-toggle,
+    & .nav__menu {
+      position: absolute;
+      z-index: 2;
+      top: calc(var(--layout-bar-middle) - var(--layout-hex-height) / 2);
+      right: var(--layout-toggle-inset);
+    }
+
+    & .nav__menu {
+      z-index: 3;
+    }
+
+    @media (width < 48rem) {
+      background: var(--color-ground);
+
+      &::after {
+        content: "";
+        position: absolute;
+        inset: auto 0 0;
+        height: var(--layout-hairline);
+        background: var(--pattern-rule-x);
+        clip-path: inset(0 calc(100% - var(--fold-share, 0) * 100%) 0 0);
+        pointer-events: none;
+      }
+    }
+
+    @media print {
+      display: none;
+    }
   }
 
   .page {
@@ -189,7 +219,7 @@
     grid-template-rows: 1fr;
     width: var(--layout-sheet);
     margin-inline: auto;
-    padding-block: 0 var(--layout-page-gap);
+    padding-block: 0 var(--layout-page-bottom);
 
     &::before,
     &::after {
@@ -207,6 +237,14 @@
         var(--asset-spark) right var(--layout-frame) top 0 / var(--layout-spark-size) no-repeat,
         var(--asset-spark) right 0 top 0 / var(--layout-spark-size) no-repeat;
       pointer-events: none;
+
+      @media (width >= 48rem) {
+        display: block;
+      }
+
+      @media print {
+        display: none;
+      }
     }
 
     &::before {
@@ -220,17 +258,15 @@
 
   .page__main {
     display: grid;
-    gap: calc(2 * var(--layout-page-gap));
-  }
+    gap: calc(var(--spacing) * 16);
 
-  @media (width >= 48rem) {
-    .page__main {
+    @media (width >= 48rem) {
+      gap: calc(var(--spacing) * 32);
       padding-inline: var(--layout-page-gap);
     }
 
-    .page::before,
-    .page::after {
-      display: block;
+    @media (width >= 80rem) {
+      gap: calc(var(--spacing) * 40);
     }
   }
 }

@@ -1,0 +1,78 @@
+@layer components {
+  .mark-kit {
+    display: grid;
+    align-items: center;
+    margin-top: calc(var(--spacing) * 2);
+
+    @media (width < 48rem) {
+      border: var(--layout-hairline) solid var(--color-rule);
+    }
+
+    @media (width >= 48rem) {
+      grid-template-columns: minmax(0, 1fr) auto;
+      justify-items: start;
+      gap: calc(var(--spacing) * 4);
+    }
+  }
+
+  .mark-kit__line,
+  .mark-kit__download {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+  }
+
+  .mark-kit__line {
+    color: var(--color-ink-muted);
+
+    @media (width < 48rem) {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: calc(var(--spacing) * 2) calc(var(--spacing) * 4);
+      padding: calc(var(--spacing) * 4) calc(var(--spacing) * 3);
+    }
+
+    @media (width >= 48rem) {
+      display: flex;
+
+      & > * + *::before {
+        content: "·";
+        margin-inline: 1ch;
+      }
+    }
+  }
+
+  .mark-kit__download {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(var(--spacing) * 1);
+    padding-inline: calc(var(--spacing) * 3);
+    color: var(--color-ink);
+    text-decoration: none;
+
+    @media (width < 48rem) {
+      flex-direction: row-reverse;
+      justify-content: space-between;
+      min-height: var(--layout-tap);
+      background: var(--pattern-rule-x);
+    }
+
+    @media (width >= 48rem) {
+      min-height: calc(var(--spacing) * 10);
+      border: var(--layout-hairline) solid var(--color-rule);
+      transition: border-color var(--duration);
+
+      &:hover,
+      &:focus-visible {
+        border-color: var(--color-ink);
+      }
+    }
+  }
+
+  .mark-kit__icon {
+    width: calc(var(--spacing) * 3);
+    height: calc(var(--spacing) * 3);
+  }
+}

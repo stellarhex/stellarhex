@@ -22,6 +22,7 @@ const baked = [
   "lockup-stacked",
   "sheet-anatomy",
   "sheet-wordmark-anatomy",
+  "footer-lockup",
 ];
 const texts = ["facts-horizontal", "facts-stacked"];
 

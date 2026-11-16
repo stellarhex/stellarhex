@@ -3,39 +3,31 @@
     --tilt: 1;
     cursor: pointer;
     color: var(--color-ink);
-    translate: 0
+    translate: calc(var(--fold-out, 0) * var(--layout-hex-stride) * -1)
       calc(
-        (var(--tilt) - var(--fold-rise, 0)) * var(--layout-hex-pitch) / 4 + var(--fold-drop, 0) *
-          var(--layout-hex-pitch)
+        (var(--tilt) * (1 - 2 * var(--fold-out, 0)) - var(--fold-rise, 0)) *
+          var(--layout-hex-pitch) / 4 + var(--fold-drop, 0) * var(--layout-hex-pitch)
       );
+    rotate: var(--fold-turn, 0deg);
 
     &:focus-visible {
-      outline: none;
+      @media not (forced-colors: active) {
+        outline: none;
+      }
     }
+  }
 
-    .theme-toggle__sun {
+  .theme-toggle__moon {
+    :root[data-theme="dark"] & {
       display: none;
     }
   }
 
-  :root[data-theme="dark"] .theme-toggle__moon {
+  .theme-toggle__sun {
     display: none;
-  }
 
-  :root[data-theme="dark"] .theme-toggle__sun {
-    display: block;
-  }
-
-  @media (width < 48rem) {
-    .theme-toggle {
-      translate: 0;
-    }
-  }
-
-  @media (forced-colors: active) {
-    .theme-toggle:focus-visible {
-      outline: 2px solid;
-      outline-offset: 2px;
+    :root[data-theme="dark"] & {
+      display: block;
     }
   }
 }

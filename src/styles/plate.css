@@ -1,0 +1,138 @@
+@property --pan-start {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --pan-end {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@layer components {
+  .plate {
+    position: relative;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    gap: calc(var(--spacing) * 6);
+    padding: calc(var(--spacing) * 6);
+    background: var(--pattern-frame);
+  }
+
+  .plate__art,
+  .plate__ground {
+    height: auto;
+    overflow: visible;
+  }
+
+  .plate__caption {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-content: end;
+    gap: calc(var(--spacing) * 1);
+  }
+
+  .plate__name {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    line-height: var(--leading-snug);
+  }
+
+  .plate__note {
+    font-size: var(--text-sm);
+    line-height: var(--leading-snug);
+    color: var(--color-ink-muted);
+  }
+
+  .plate__pan {
+    --pan-fade: calc(var(--spacing) * 10);
+
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-rule) transparent;
+
+    @supports (animation-timeline: scroll()) {
+      mask-image: linear-gradient(
+        to right,
+        transparent,
+        #000 var(--pan-start),
+        #000 calc(100% - var(--pan-end)),
+        transparent
+      );
+      animation: plate-pan linear both;
+      animation-timeline: scroll(self inline);
+    }
+  }
+
+  @keyframes plate-pan {
+    from {
+      --pan-end: var(--pan-fade);
+    }
+
+    10%,
+    90% {
+      --pan-start: var(--pan-fade);
+      --pan-end: var(--pan-fade);
+    }
+
+    to {
+      --pan-start: var(--pan-fade);
+    }
+  }
+
+  .plate--mark {
+    --mark-ground: var(--color-ground);
+
+    & .plate__art,
+    & .plate__ground {
+      grid-row: 1;
+      grid-column: 1;
+      align-self: center;
+      justify-self: center;
+      width: clamp(5.5rem, 60%, 11.875rem);
+    }
+  }
+
+  .plate--white {
+    --color-brand: var(--color-white);
+    --mark-ground: var(--color-night);
+  }
+
+  .plate--black {
+    --color-brand: var(--color-night);
+    --mark-ground: light-dark(var(--color-ground), var(--color-white));
+  }
+
+  .plate--seal {
+    grid-template-rows: minmax(0, 1fr);
+    gap: 0;
+
+    & .plate__art {
+      align-self: center;
+      justify-self: center;
+      width: min(70%, 26.25rem);
+    }
+  }
+
+  .plate--sheet {
+    grid-template-rows: auto;
+
+    @media (width < 48rem) {
+      &::after {
+        content: "← →";
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        text-align-last: justify;
+        color: var(--color-ink-muted);
+      }
+    }
+
+    & .plate__art {
+      width: 100%;
+      min-width: 40rem;
+      max-width: 56rem;
+      margin-inline: auto;
+    }
+  }
+}

@@ -1,0 +1,133 @@
+@layer components {
+  .mission {
+    display: grid;
+    align-content: start;
+    gap: calc(var(--spacing) * 8);
+
+    @media (width >= 48rem) {
+      gap: calc(var(--spacing) * 6);
+    }
+  }
+
+  .mission__head {
+    display: grid;
+    gap: calc(var(--spacing) * 3);
+
+    @media (width >= 48rem) {
+      gap: calc(var(--spacing) * 1);
+    }
+  }
+
+  .mission__label {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+
+    @media (width < 48rem) {
+      display: flex;
+      align-items: center;
+      gap: calc(var(--spacing) * 2);
+
+      &::before {
+        content: "";
+        width: var(--layout-spark-size);
+        height: var(--layout-spark-size);
+        background: var(--color-brand-ui);
+        mask: var(--asset-spark) center / contain no-repeat;
+      }
+
+      &::after {
+        content: "";
+        flex: 1;
+        height: var(--layout-hairline);
+        background: var(--pattern-rule-x);
+      }
+    }
+
+    @media (width >= 48rem) {
+      font-size: var(--text-sm);
+    }
+  }
+
+  .mission__title {
+    font-size: var(--text-2xl);
+    font-weight: 500;
+    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-tight);
+    text-wrap: balance;
+
+    @media (width >= 48rem) {
+      font-size: var(--text-3xl);
+    }
+  }
+
+  .mission__principles {
+    display: grid;
+    gap: calc(var(--spacing) * 5);
+
+    @media (width < 48rem) {
+      padding: calc(var(--spacing) * 5);
+      background: var(--pattern-frame);
+      counter-reset: principle;
+    }
+
+    @media (width >= 48rem) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: calc(var(--spacing) * 6);
+      padding-top: calc(var(--spacing) * 6);
+      background: var(--pattern-rule-x);
+    }
+  }
+
+  .mission__principle {
+    display: grid;
+    gap: calc(var(--spacing) * 2);
+
+    @media (width < 48rem) {
+      grid-template-columns: auto minmax(0, 1fr);
+      column-gap: calc(var(--spacing) * 2);
+      counter-increment: principle;
+
+      &::before {
+        content: counter(principle, decimal-leading-zero);
+        font-size: var(--text-base);
+        color: var(--color-ink-muted);
+      }
+
+      & + & {
+        padding-top: calc(var(--spacing) * 5);
+        background: var(--pattern-rule-x);
+      }
+    }
+  }
+
+  .mission__principle::before,
+  .mission__name {
+    font-family: var(--font-mono);
+    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-widest);
+  }
+
+  .mission__name {
+    font-size: var(--text-base);
+    font-weight: 500;
+    text-transform: uppercase;
+
+    @media (width >= 48rem) {
+      font-size: var(--text-xl);
+    }
+  }
+
+  .mission__line {
+    max-width: 34ch;
+    color: var(--color-ink-muted);
+    line-height: var(--leading-snug);
+    text-wrap: pretty;
+
+    @media (width < 48rem) {
+      grid-column: 2;
+    }
+  }
+}

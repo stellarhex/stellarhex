@@ -4,6 +4,17 @@
     align-content: center;
     padding: var(--layout-hero-pad) var(--layout-gutter);
     background: var(--color-ground);
+
+    @media (width >= 48rem) {
+      min-height: calc(var(--layout-hero) - var(--layout-topbar));
+      padding-block: var(--layout-block-pad) calc(var(--layout-block-pad) + var(--layout-page-gap));
+    }
+
+    @media print {
+      min-height: auto;
+      background: #fff;
+      color: #000;
+    }
   }
 
   .hero__inner {
@@ -13,6 +24,49 @@
     width: 100%;
     max-width: var(--layout-column);
     margin-inline: auto;
+
+    @media (width < 48rem) {
+      --axis: 25%;
+
+      position: relative;
+      min-height: calc(var(--layout-hero) - var(--layout-topbar) - 2 * var(--layout-hero-pad));
+      background: var(--pattern-ticks);
+
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        pointer-events: none;
+      }
+
+      &::before {
+        bottom: var(--axis);
+        left: calc(50% - var(--layout-spark-size) / 2);
+        width: var(--layout-spark-size);
+        height: var(--layout-spark-size);
+        background: var(--color-rule);
+        mask: var(--asset-spark) center / contain no-repeat;
+      }
+
+      &::after {
+        bottom: 0;
+        left: calc(50% - var(--layout-hairline) / 2);
+        width: var(--layout-hairline);
+        height: calc(var(--axis) - var(--layout-spark-size) / 2);
+        background: var(--pattern-dash-y) left top / var(--layout-hairline)
+          calc(var(--layout-dash) / 4) repeat-y;
+      }
+    }
+
+    @media print {
+      min-height: auto;
+      background: none;
+
+      &::before,
+      &::after {
+        display: none;
+      }
+    }
   }
 
   .hero__text {
@@ -24,12 +78,8 @@
   }
 
   .hero__word > svg {
-    --cap: min(
-      3.375rem,
-      100cqi / (var(--ratio, var(--wordmark-ratio)) + 2 * var(--tail, var(--wordmark-tail)))
-    );
+    --cap: min(3.375rem, 100cqi / (var(--ratio) + 2 * var(--tail)));
 
-    display: block;
     height: var(--cap);
     width: auto;
     overflow: visible;
@@ -49,12 +99,5 @@
     letter-spacing: var(--tracking-widest);
     text-transform: uppercase;
     color: var(--color-ink-muted);
-  }
-
-  @media (width >= 48rem) {
-    .hero {
-      min-height: calc(var(--layout-hero) - var(--layout-topbar));
-      padding-block: var(--layout-block-pad) calc(var(--layout-block-pad) + var(--layout-page-gap));
-    }
   }
 }

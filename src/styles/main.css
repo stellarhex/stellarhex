@@ -5,62 +5,14 @@
 @import "./tokens.css";
 @import "./layout.css";
 @import "./hex.css";
+@import "./section.css";
+@import "./grid.css";
+@import "./plate.css";
 @import "../components/logo/logo.css";
 @import "../components/hero/hero.css";
-@import "./section.css";
+@import "../components/mark/mark.css";
 @import "../components/lockups/lockups.css";
 @import "../components/nav/nav.css";
 @import "../components/theme-toggle/theme-toggle.css";
+@import "../components/mission/mission.css";
 @import "../components/footer/footer.css";
-
-:root {
-  color-scheme: light dark;
-}
-
-:root[data-theme="light"] {
-  color-scheme: light;
-}
-
-:root[data-theme="dark"] {
-  color-scheme: dark;
-}
-
-@layer base {
-  body {
-    background: var(--color-ground);
-    color: var(--color-ink);
-    font-family: var(--font-sans);
-    font-feature-settings: "ss03";
-    font-variant-numeric: tabular-nums;
-  }
-}
-
-@media print {
-  :root {
-    color-scheme: light;
-  }
-
-  body,
-  .hero {
-    background: #fff;
-    color: #000;
-  }
-
-  body::before,
-  body::after,
-  .page::before,
-  .page::after,
-  .footer::before,
-  .footer::after,
-  .topbar {
-    display: none;
-  }
-
-  .hero {
-    min-height: auto;
-  }
-
-  .footer {
-    break-inside: avoid;
-  }
-}

@@ -140,8 +140,13 @@ export default defineConfig(({ command, isPreview }) => ({
     identityInline(),
     {
       name: "site-html",
-      transformIndexHtml: (html) =>
-        html
+      transformIndexHtml: (html) => {
+        const page = html.match(/<body\b[^>]*\sdata-page="([^"]+)"/)?.[1];
+
+        return html
+          .replace(/<a\b[^>]*\sdata-nav="([^"]+)"[^>]*>/g, (link, name) =>
+            name === page ? link.replace(/>$/, ' aria-current="page">') : link,
+          )
           .replaceAll("%SITE_URL%", SITE_URL)
           .replaceAll(
             "%GOOGLE_SITE_VERIFICATION%",
@@ -157,7 +162,8 @@ export default defineConfig(({ command, isPreview }) => ({
                 ? '<meta name="robots" content="max-image-preview:large" />'
                 : '<meta name="robots" content="noindex" />',
           )
-          .replace(/[ \t]+$/gm, ""),
+          .replace(/[ \t]+$/gm, "");
+      },
     },
     injectHTML({ tagName: "include" }),
   ],
