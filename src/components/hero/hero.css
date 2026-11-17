@@ -9,6 +9,7 @@
       position: relative;
       min-height: calc(var(--layout-hero) - var(--layout-topbar));
       padding-block: var(--layout-block-pad) calc(var(--layout-block-pad) + var(--layout-page-gap));
+      padding-inline: var(--layout-hero-inset) var(--layout-side);
     }
 
     @media print {
@@ -68,15 +69,14 @@
     container-type: inline-size;
     width: 100%;
     display: grid;
+    gap: calc(var(--spacing) * 2);
 
     @media (width < 48rem) {
       justify-items: center;
-      gap: calc(var(--spacing) * 3);
     }
 
     @media (width >= 48rem) {
       grid-column: 1 / span 6;
-      gap: calc(var(--spacing) * 4);
     }
   }
 

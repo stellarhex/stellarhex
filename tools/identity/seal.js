@@ -1,7 +1,7 @@
 import { radians, degrees, onCircle, fixed } from "../core/math.js";
 import { tag } from "../core/svg.js";
 import { NAME, MOTTO } from "./brand.js";
-import { monoAdvance, glyph, STELLARHEX_MONO } from "./mono.js";
+import { monoAdvance, glyph, GEIST_MONO } from "./mono.js";
 import { BRAND, spark } from "./mark.js";
 
 /* ---------- seal ---------- */
@@ -36,8 +36,7 @@ function sealArcs(topSpan) {
 }
 
 const sealLetter = () => SEAL.size * monoAdvance();
-const sealBaseline = () =>
-  SEAL.radius - (SEAL.size * STELLARHEX_MONO.cap) / STELLARHEX_MONO.upm / 2;
+const sealBaseline = () => SEAL.radius - (SEAL.size * GEIST_MONO.cap) / GEIST_MONO.upm / 2;
 const sealSide = () => radians(SEAL.sideArc) * sealBaseline();
 const sealTopSpan = () =>
   degrees(
@@ -46,11 +45,11 @@ const sealTopSpan = () =>
 
 function outlineArc(text, startAngle, letterGap) {
   const radius = sealBaseline(),
-    fontScale = SEAL.size / STELLARHEX_MONO.upm;
+    fontScale = SEAL.size / GEIST_MONO.upm;
   let along = 0,
     paths = "";
   [...text].forEach((char) => {
-    const [advance, path] = STELLARHEX_MONO.g[char],
+    const [advance, path] = GEIST_MONO.g[char],
       width = advance * fontScale;
     const angle = startAngle + degrees((along + width / 2) / radius),
       [x, y] = onCircle(radius, angle);

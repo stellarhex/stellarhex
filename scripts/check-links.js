@@ -72,4 +72,4 @@ if (problems.length) {
   console.error(problems.join("\n"));
   process.exit(1);
 }
-console.log(`links: ${pages.length} pages — href/src links and #anchors resolve`);
+console.log(`links: ${pages.length} pages - href/src links and #anchors resolve`);

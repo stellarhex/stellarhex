@@ -13,6 +13,7 @@ export default [
     rules: {
       "no-console": "warn",
       "no-empty": ["error", { allowEmptyCatch: true }],
+      "no-shadow": "error",
     },
   },
   {

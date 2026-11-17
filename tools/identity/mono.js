@@ -2,8 +2,8 @@ import { tag } from "../core/svg.js";
 
 /* ---------- mono ---------- */
 
-export const MONO = "Stellarhex Mono, ui-monospace, Menlo, Consolas, monospace";
-export const monoAdvance = () => STELLARHEX_MONO.g[" "][0] / STELLARHEX_MONO.upm;
+export const MONO = "Geist Mono, ui-monospace, Menlo, Consolas, monospace";
+export const monoAdvance = () => GEIST_MONO.g[" "][0] / GEIST_MONO.upm;
 export const glyph = (transform, fontScale, path) =>
   tag("path", {
     transform: `${transform} scale(${fontScale.toFixed(5)} ${(-fontScale).toFixed(5)})`,
@@ -12,7 +12,7 @@ export const glyph = (transform, fontScale, path) =>
 
 /* ---------- data ---------- */
 
-export const STELLARHEX_MONO = {
+export const GEIST_MONO = {
   upm: 1000,
   cap: 710,
   g: {

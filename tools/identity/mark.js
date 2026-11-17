@@ -92,6 +92,11 @@ export const markSvg = (content, className, viewBox = squareBox(MARK_HALF)) =>
   );
 
 export const markBox = once(() => inkBox(STATE.mark()));
+export const markView = () => {
+  const { x, y, width, height } = markBox();
+
+  return [x, y, width, height].map(fixed).join(" ");
+};
 
 /* ---------- spark ---------- */
 

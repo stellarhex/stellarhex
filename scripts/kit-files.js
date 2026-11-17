@@ -1,3 +1,5 @@
+export const kitName = "stellarhex-brand-kit";
+
 export const drawings = {
   "mark-brand": "stellarhex-mark-brand",
   "mark-white": "stellarhex-mark-white",
@@ -13,7 +15,7 @@ export const wordmarks = [
   ["--color-night", "black"],
 ];
 
-export const squares = [
+const squares = [
   "stellarhex-mark-brand-square",
   "stellarhex-mark-white-square",
   "stellarhex-mark-black-square",

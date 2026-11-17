@@ -5,7 +5,7 @@ import { WORDMARK, wordmark, wordSvg } from "./wordmark.js";
 
 /* ---------- lockup ---------- */
 
-export const LOCKUP_RULE = { cap: 28, gap: 28 };
+const LOCKUP_RULE = { cap: 28, gap: 28 };
 export const LOCKUP = { horizontal: { axis: 0 }, stacked: { axis: 1 } };
 const LOCKUP_LETTER_PX = 101;
 const LOCKUP_PIXELS = LOCKUP_LETTER_PX / (LOCKUP_RULE.cap * MODULE);

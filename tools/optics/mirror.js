@@ -125,7 +125,6 @@ export function initMirror(holder, stage) {
       ) +
       tag("line", { stroke: "var(--mark-cut)" }).repeat(struts.length) +
       tag("polygon", { fill: "var(--mark-cut)" }),
-    "cover__mark-art",
   );
   const svg = holder.firstElementChild,
     [wallGroup, faceGroup, glintGroup, shadows] = svg.querySelectorAll(":scope > g");

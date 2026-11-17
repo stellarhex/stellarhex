@@ -10,16 +10,8 @@
   </head>
   <body>
     <include src="src/html/header.html" />
-    <section class="hero" aria-label="Page not found">
-      <div class="hero__inner">
-        <div class="hero__text">
-          <h1 class="hero__title">Page not found</h1>
-        </div>
-      </div>
-    </section>
-    <div class="page">
-      <main id="content" class="page__main" tabindex="-1"></main>
-    </div>
+    <include src="src/components/lost/lost.html" />
+    <div class="page page--closing" aria-hidden="true"></div>
     <include src="src/components/footer/footer.html" />
   </body>
 </html>
