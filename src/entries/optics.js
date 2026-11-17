@@ -6,13 +6,14 @@ import { initHalo } from "../../tools/optics/halo.js";
 
 const mark = byId("hero-mark");
 const back = byId("hero-halo-back");
+const front = byId("hero-halo-front");
 
-if (mark && back) {
+if (mark && back && front) {
   const mirror = initMirror(mark, back);
 
   mirror.frame(0);
 
-  const halo = initHalo(back, byId("hero-halo-front"), mark, mirror);
+  const halo = initHalo(back, front, mark, mirror);
   const recolour = () => {
     mirror.recolour();
     halo.recolour();

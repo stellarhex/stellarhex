@@ -1,0 +1,48 @@
+StellarHex Brand Usage
+=====================
+Last updated: November 2026
+
+Scope
+-----
+The StellarHex name, mark, wordmark, seal and lockups identify StellarHex
+and are its trademarks. This policy governs their use as brand identifiers
+in any file or format, including the files in the brand kit, the repository's
+icons and images, and the output of the drawing tools.
+
+This policy does not license the source code; see the repository's LICENSE.
+
+Permitted references
+--------------------
+You may reproduce and display the supplied, unmodified brand assets to
+truthfully identify or link to StellarHex, including in articles, talks,
+documentation and factual descriptions of integrations, provided that:
+
+- You clearly identify StellarHex and do not imply an affiliation,
+  sponsorship or endorsement that does not exist.
+- You preserve the artwork, proportions and supplied colours. Proportional
+  resizing and file-format conversion are allowed.
+- You keep this policy with any redistribution of the brand kit.
+
+No additional permission is needed for these uses.
+
+Other uses
+----------
+Prior written permission is required to:
+
+- Adopt the name or any of the artwork, including modified versions, as the
+  branding of another company, product, service, project or social account.
+- Alter or recolour the artwork beyond the permitted changes above.
+- Use the brand assets on merchandise for sale or sell them as standalone
+  artwork or logo packs.
+
+Downloading the kit, copying files or running the drawing tools does not
+grant permission for these other uses.
+
+Rights and questions
+--------------------
+All rights not expressly granted here are reserved by the respective rights
+holders. Nothing in this policy limits uses permitted by applicable law or
+changes rights already granted under a valid existing licence or agreement.
+
+Permission requests: contact@stellarhex.com
+Identity guide: https://stellarhex.com/brand/

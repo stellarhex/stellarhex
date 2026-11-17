@@ -430,7 +430,6 @@ export function glMirror(holder, svg) {
   } = MIRROR_LAYOUT;
   const canvas = document.createElement("canvas"),
     context = { ...GL_CONTEXT, antialias: true, stencil: true };
-  canvas.setAttribute("class", svg.getAttribute("class"));
   canvas.setAttribute("aria-hidden", "true");
   const segments = MIRROR.centres.length,
     struts = MIRROR.strutAngles.length,
@@ -473,26 +472,26 @@ export function glMirror(holder, svg) {
   const fan = (polygon) => {
     for (let k = 1; k < polygon.length - 1; k++) triangle(polygon[0], polygon[k], polygon[k + 1]);
   };
-  const fanAt = (buffer, offset, size) => {
+  const fanAt = (values, offset, size) => {
     for (let k = 1; k < size - 1; k++) {
-      put(buffer[offset], buffer[offset + 1]);
-      put(buffer[offset + point * k], buffer[offset + point * k + 1]);
-      put(buffer[offset + point * (k + 1)], buffer[offset + point * (k + 1) + 1]);
+      put(values[offset], values[offset + 1]);
+      put(values[offset + point * k], values[offset + point * k + 1]);
+      put(values[offset + point * (k + 1)], values[offset + point * (k + 1) + 1]);
     }
   };
-  const cornersAt = (buffer, offset) => {
+  const cornersAt = (values, offset) => {
     for (let c = 0; c < cornerCount; c++) {
-      corners[c][0] = buffer[offset + point * c];
-      corners[c][1] = buffer[offset + point * c + 1];
+      corners[c][0] = values[offset + point * c];
+      corners[c][1] = values[offset + point * c + 1];
     }
     return corners;
   };
-  const bar = (buffer, o) => {
-    const x1 = buffer[o],
-      y1 = buffer[o + 1],
-      x2 = buffer[o + 2],
-      y2 = buffer[o + 3],
-      width = buffer[o + 4];
+  const bar = (values, o) => {
+    const x1 = values[o],
+      y1 = values[o + 1],
+      x2 = values[o + 2],
+      y2 = values[o + 3],
+      width = values[o + 4];
     const length = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2) || 1,
       nx = ((-(y2 - y1) / length) * width) / 2,
       ny = (((x2 - x1) / length) * width) / 2;

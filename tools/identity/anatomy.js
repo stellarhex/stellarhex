@@ -501,13 +501,9 @@ export const SHEETS = {
   anatomy: {
     half: () => ANATOMY_HALF,
     draw: markSheet,
-    label: `${STATE.name}: construction drawing`,
-    about: "the construction drawing of the mark",
   },
   "wordmark-anatomy": {
     half: () => plannedWord().half,
     draw: wordSheet,
-    label: `${NAME} wordmark: construction drawing`,
-    about: "the construction drawing of the wordmark",
   },
 };

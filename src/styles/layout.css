@@ -5,8 +5,9 @@
   --layout-topbar: calc(var(--spacing) * 20);
   --layout-page-gap: calc(var(--spacing) * 12);
   --layout-page-bottom: calc(var(--spacing) * 20);
-  --layout-hero: 70svh;
-  --layout-block-pad: calc(var(--spacing) * 28);
+  --layout-hero-peek: calc(var(--spacing) * 20);
+  --layout-hero: calc(100svh - var(--layout-hero-peek));
+  --layout-block-pad: calc(var(--spacing) * 10);
   --layout-hero-pad: calc(var(--spacing) * 8);
   --layout-hero-stage: calc(var(--layout-hero) - var(--layout-topbar) - 2 * var(--layout-hero-pad));
   --layout-footer-pad: calc(var(--spacing) * 20);
@@ -49,6 +50,10 @@
     --layout-page-bottom: calc(var(--spacing) * 16);
     --layout-gutter: calc(var(--spacing) * 6);
     --layout-brand-inset: max(0px, var(--layout-axis) - var(--layout-brand) / 2);
+    --layout-hero-inset: max(
+      var(--layout-side),
+      var(--layout-brand-inset) + var(--layout-brand) + calc(var(--spacing) * 6)
+    );
     --layout-toggle-inset: max(
       calc(var(--layout-gutter) - var(--layout-hex-width) / 2),
       calc(var(--layout-axis) - var(--layout-hex-width) / 2)
@@ -255,6 +260,10 @@
     &::after {
       top: calc(100% + var(--layout-spark-at));
     }
+  }
+
+  .page--closing {
+    flex: none;
   }
 
   .page__main {

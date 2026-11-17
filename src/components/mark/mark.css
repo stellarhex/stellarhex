@@ -3,23 +3,23 @@
     display: grid;
     align-items: center;
     margin-top: calc(var(--spacing) * 2);
+    font-size: var(--text-xs);
+    line-height: var(--leading-snug);
 
     @media (width < 48rem) {
-      border: var(--layout-hairline) solid var(--color-rule);
+      gap: calc(var(--spacing) * 2);
     }
 
     @media (width >= 48rem) {
       grid-template-columns: minmax(0, 1fr) auto;
       justify-items: start;
-      gap: calc(var(--spacing) * 4);
+      gap: calc(var(--spacing) * 1) calc(var(--spacing) * 4);
     }
   }
 
   .mark-kit__line,
   .mark-kit__download {
     font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    line-height: var(--leading-snug);
     letter-spacing: var(--tracking-widest);
     text-transform: uppercase;
   }
@@ -31,7 +31,6 @@
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: calc(var(--spacing) * 2) calc(var(--spacing) * 4);
-      padding: calc(var(--spacing) * 4) calc(var(--spacing) * 3);
     }
 
     @media (width >= 48rem) {
@@ -49,19 +48,22 @@
     align-items: center;
     gap: calc(var(--spacing) * 1);
     padding-inline: calc(var(--spacing) * 3);
+    border: var(--layout-hairline) solid;
     color: var(--color-ink);
     text-decoration: none;
 
     @media (width < 48rem) {
-      flex-direction: row-reverse;
-      justify-content: space-between;
+      justify-content: center;
       min-height: var(--layout-tap);
-      background: var(--pattern-rule-x);
+      margin-top: calc(var(--spacing) * 2);
+      border-color: var(--color-ink);
     }
 
     @media (width >= 48rem) {
+      grid-column: 2;
+      grid-row: 1 / span 2;
       min-height: calc(var(--spacing) * 10);
-      border: var(--layout-hairline) solid var(--color-rule);
+      border-color: var(--color-rule);
       transition: border-color var(--duration);
 
       &:hover,
@@ -69,6 +71,20 @@
         border-color: var(--color-ink);
       }
     }
+  }
+
+  .mark-kit__terms {
+    color: var(--color-ink-muted);
+
+    @media (width >= 48rem) {
+      grid-column: 1;
+    }
+  }
+
+  .mark-kit__terms-link {
+    color: var(--color-ink);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
 
   .mark-kit__icon {

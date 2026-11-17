@@ -27,14 +27,14 @@
   .section__number {
     grid-row: 1;
     font-family: var(--font-mono);
-    font-size: var(--text-3xl);
+    font-size: var(--text-2xl);
     line-height: var(--leading-tight);
     color: var(--color-ink-muted);
   }
 
   .section__title {
     grid-row: 1;
-    font-size: var(--text-3xl);
+    font-size: var(--text-2xl);
     font-weight: 500;
     line-height: var(--leading-tight);
     letter-spacing: var(--tracking-tight);

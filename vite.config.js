@@ -6,7 +6,7 @@ import injectHTML from "vite-plugin-html-inject";
 import { ALLOW_INDEXING, BASE_PATH, GOOGLE_SITE_VERIFICATION, SITE_URL } from "./site.config.js";
 import { bakeKit, captureIdentity, startDevServer } from "./scripts/identity-svg.js";
 import { walk } from "./scripts/lib/walk.js";
-import { drawings, wordmarks } from "./scripts/kit-files.js";
+import { drawings, kitName, wordmarks } from "./scripts/kit-files.js";
 import { kitProbe } from "./scripts/kit-probe.js";
 
 /* ---------- kit ---------- */
@@ -14,7 +14,7 @@ import { kitProbe } from "./scripts/kit-probe.js";
 const stamp = () => {
   const hash = createHash("sha1");
 
-  for (const dir of ["tools", "src"])
+  for (const dir of ["tools", "src", "public"])
     for (const file of walk(dir).sort()) hash.update(file).update(readFileSync(file));
 
   return hash.digest("hex");
@@ -61,15 +61,12 @@ function kit() {
         response.setHeader("Content-Type", "text/html");
         response.end(kitProbe(theme, drawings, wordmarks));
       });
-      server.middlewares.use("/stellarhex-brand-kit.zip", async (_request, response) => {
+      server.middlewares.use(`/${kitName}.zip`, async (_request, response) => {
         try {
           const archive = await build();
 
           response.setHeader("Content-Type", "application/zip");
-          response.setHeader(
-            "Content-Disposition",
-            'attachment; filename="stellarhex-brand-kit.zip"',
-          );
+          response.setHeader("Content-Disposition", `attachment; filename="${kitName}.zip"`);
           response.end(archive);
         } catch (error) {
           response.statusCode = 500;
@@ -128,11 +125,23 @@ function identityInline() {
       }
     },
     writeBundle(options) {
-      writeFileSync(`${options.dir ?? "dist"}/stellarhex-brand-kit.zip`, archive);
+      writeFileSync(`${options.dir ?? "dist"}/${kitName}.zip`, archive);
     },
     transformIndexHtml: { order: "post", handler: fill },
   };
 }
+
+/* ---------- policy ---------- */
+
+const POLICY = [
+  "default-src 'self'",
+  "style-src-attr 'unsafe-inline'",
+  "img-src 'self' data:",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'none'",
+  "upgrade-insecure-requests",
+].join("; ");
 
 export default defineConfig(({ command, isPreview }) => ({
   base: command === "build" || isPreview ? BASE_PATH : "/",
@@ -152,6 +161,12 @@ export default defineConfig(({ command, isPreview }) => ({
             name === page ? link.replace(/>$/, ' aria-current="page">') : link,
           )
           .replaceAll("%SITE_URL%", SITE_URL)
+          .replaceAll(
+            "%POLICY%",
+            command === "build"
+              ? `<meta http-equiv="Content-Security-Policy" content="${POLICY}" />`
+              : "",
+          )
           .replaceAll(
             "%GOOGLE_SITE_VERIFICATION%",
             GOOGLE_SITE_VERIFICATION

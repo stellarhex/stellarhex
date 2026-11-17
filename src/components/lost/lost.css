@@ -1,0 +1,53 @@
+@layer components {
+  .lost {
+    display: grid;
+    flex: 1 0 auto;
+    align-content: center;
+    justify-items: center;
+    gap: calc(var(--spacing) * 4);
+    padding: var(--layout-hero-pad) var(--layout-gutter);
+    background: var(--color-ground);
+    text-align: center;
+
+    @media print {
+      background: #fff;
+      color: #000;
+    }
+  }
+
+  .lost__title {
+    display: flex;
+    align-items: center;
+    gap: 0.08em;
+    font-size: clamp(calc(var(--text-5xl) * 2), 34vmin, calc(var(--text-5xl) * 5));
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  .lost__mark {
+    color: var(--color-error);
+  }
+
+  .lost__mark > svg {
+    display: block;
+    width: auto;
+    height: 0.9em;
+    overflow: visible;
+  }
+
+  .lost__label {
+    font-family: var(--font-mono);
+    font-size: var(--text-base);
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--color-error);
+
+    @media (width >= 48rem) {
+      font-size: var(--text-xl);
+    }
+  }
+
+  .lost__action {
+    min-height: var(--layout-tap);
+  }
+}

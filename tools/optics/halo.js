@@ -231,10 +231,10 @@ export function initHalo(back, front, mark, mirror) {
     cursor = new Uint32Array(bucketCount);
   const heads = new Float64Array(3 * particles.length);
   const strokeBucket = (ctx, bucket) => {
-    const last = starts[bucket + 1];
-    if (starts[bucket] === last) return;
+    const end = starts[bucket + 1];
+    if (starts[bucket] === end) return;
     ctx.beginPath();
-    for (let j = starts[bucket]; j < last; j++) {
+    for (let j = starts[bucket]; j < end; j++) {
       const o = 4 * order[j];
       ctx.moveTo(segmentEnds[o], segmentEnds[o + 1]);
       ctx.lineTo(segmentEnds[o + 2], segmentEnds[o + 3]);
@@ -373,9 +373,9 @@ export function initHalo(back, front, mark, mirror) {
       for (const spike of SPIKES)
         for (let side = 0; side <= 180; side += 180) {
           const weight = spike[1],
-            turn = radians(spike[0] + side),
-            dx = reach * weight * Math.cos(turn),
-            dy = reach * weight * Math.sin(turn);
+            heading = radians(spike[0] + side),
+            dx = reach * weight * Math.cos(heading),
+            dy = reach * weight * Math.sin(heading);
           const ray = ctx.createLinearGradient(fx, fy, fx + dx, fy + dy);
           ray.addColorStop(0, colour);
           ray.addColorStop(1, groundClear);

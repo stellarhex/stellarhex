@@ -100,3 +100,22 @@ export const HALO = {
     full: 6,
   },
 };
+
+/* ---------- phasing ---------- */
+
+export const PHASING = {
+  nudge: 3,
+  tone: [0.4, 0.75],
+  graze: 0.4,
+  flick: 0.2,
+  flash: 0.4,
+  miss: 0.7,
+  core: 0.5,
+  pause: [0.6, 1.1],
+  shock: 2,
+  reach: 3,
+  speed: 6,
+  sway: 2,
+  damp: 0.3,
+  settle: 2,
+};

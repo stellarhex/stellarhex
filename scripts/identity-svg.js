@@ -1,8 +1,10 @@
 import { execFile, spawn } from "node:child_process";
 import { readFileSync, rmSync, writeFileSync } from "node:fs";
 import { createServer as netServer } from "node:net";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { promisify } from "node:util";
-import { names, themed } from "./kit-files.js";
+import { kitName, names, themed } from "./kit-files.js";
 import { zip } from "./zip.js";
 
 const run = promisify(execFile);
@@ -28,7 +30,22 @@ const texts = ["facts-horizontal", "facts-stacked"];
 
 /* ---------- chrome ---------- */
 
-const profile = () => `/tmp/stellarhex-identity-${process.pid}`;
+const profile = () => join(tmpdir(), `stellarhex-identity-${process.pid}`);
+const binaries = [process.env.CHROME_PATH, "google-chrome", "chromium", "chromium-browser"].filter(
+  Boolean,
+);
+
+const launch = async (args, options, task) => {
+  for (const binary of binaries) {
+    try {
+      return await run(binary, args, options);
+    } catch (error) {
+      if (error.code !== "ENOENT") throw error;
+    }
+  }
+
+  throw new Error(`identity: no Chrome/Chromium found to ${task}`);
+};
 
 const chrome = async (url, dir) => {
   const args = [
@@ -45,21 +62,13 @@ const chrome = async (url, dir) => {
     url,
   ];
 
-  for (const binary of ["google-chrome", "chromium", "chromium-browser"]) {
-    try {
-      const { stdout } = await run(binary, args, {
-        maxBuffer: 64 * 1024 * 1024,
-        timeout: 90000,
-        killSignal: "SIGKILL",
-      });
+  const { stdout } = await launch(
+    args,
+    { maxBuffer: 64 * 1024 * 1024, timeout: 90000, killSignal: "SIGKILL" },
+    "bake the drawings",
+  );
 
-      return stdout;
-    } catch (error) {
-      if (error.code !== "ENOENT") throw error;
-    }
-  }
-
-  throw new Error("identity: no Chrome/Chromium found to bake the drawings");
+  return stdout;
 };
 
 let rasters = 0;
@@ -75,32 +84,24 @@ const raster = async (markup, [width, height], base) => {
   );
 
   try {
-    for (const binary of ["google-chrome", "chromium", "chromium-browser"]) {
-      try {
-        await run(
-          binary,
-          [
-            "--headless=new",
-            "--disable-gpu",
-            "--hide-scrollbars",
-            "--no-first-run",
-            "--default-background-color=00000000",
-            `--user-data-dir=${dir}`,
-            `--window-size=${width},${height}`,
-            "--virtual-time-budget=3000",
-            `--screenshot=${png}`,
-            `file://${html}`,
-          ],
-          { timeout: 60000, killSignal: "SIGKILL" },
-        );
+    await launch(
+      [
+        "--headless=new",
+        "--disable-gpu",
+        "--hide-scrollbars",
+        "--no-first-run",
+        "--default-background-color=00000000",
+        `--user-data-dir=${dir}`,
+        `--window-size=${width},${height}`,
+        "--virtual-time-budget=3000",
+        `--screenshot=${png}`,
+        `file://${html}`,
+      ],
+      { timeout: 60000, killSignal: "SIGKILL" },
+      "rasterise the marks",
+    );
 
-        return readFileSync(png);
-      } catch (error) {
-        if (error.code !== "ENOENT") throw error;
-      }
-    }
-
-    throw new Error("identity: no Chrome/Chromium found to rasterise the marks");
+    return readFileSync(png);
   } finally {
     rmSync(html, { force: true });
     rmSync(dir, { recursive: true, force: true });
@@ -244,7 +245,7 @@ export async function captureIdentity(port) {
 
 /* ---------- kit ---------- */
 
-export async function captureKit(port) {
+async function captureKit(port) {
   const files = [];
 
   for (const theme of ["light", "dark"]) {
@@ -262,6 +263,9 @@ export async function captureKit(port) {
     if (!json) throw new Error(`identity: kit for ${theme} was not rendered`);
 
     const kit = JSON.parse(unescape(json));
+
+    if (kit.error) throw new Error(`identity: kit for ${theme} failed: ${kit.error}`);
+
     const missing = names.filter((name) => !kit[name]);
 
     if (missing.length) throw new Error(`identity: kit is missing ${missing.join(", ")}`);
@@ -271,7 +275,7 @@ export async function captureKit(port) {
 
       const suffix = theme === "dark" && themed.includes(name) ? "-dark" : "";
 
-      files.push({ name: `stellarhex-brand-kit/svg/${name}${suffix}.svg`, data: markup });
+      files.push({ name: `${kitName}/svg/${name}${suffix}.svg`, data: markup });
     }
   }
 
@@ -279,12 +283,16 @@ export async function captureKit(port) {
 }
 
 export async function bakeKit(port) {
+  const policy = {
+    name: `${kitName}/BRAND.txt`,
+    data: readFileSync("public/BRAND.txt"),
+  };
   const drawings = await captureKit(port);
 
-  return zip([...drawings, ...(await rasterKit(drawings))]);
+  return zip([policy, ...drawings, ...(await rasterKit(drawings))]);
 }
 
-export async function rasterKit(files) {
+async function rasterKit(files) {
   const dir = `${profile()}-png`;
   const jobs = files.map((file) => {
     const name = file.name
@@ -298,7 +306,7 @@ export async function rasterKit(files) {
     const scale = 1024 / Math.max(width, height);
 
     return {
-      name: `stellarhex-brand-kit/png/${name}.png`,
+      name: `${kitName}/png/${name}.png`,
       markup: String(file.data),
       size: [Math.round(width * scale), Math.round(height * scale)],
     };

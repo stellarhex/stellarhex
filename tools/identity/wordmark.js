@@ -6,7 +6,6 @@ import { sparkCurves } from "./mark.js";
 /* ---------- wordmark ---------- */
 
 export const LETTERING = { stroke: 0.24, width: 1, tracking: 0.35 };
-export const SMALL_CAP_PX = 24;
 export const X_DESIGN = {
   body: 1.9,
   arm: 1.2,
@@ -388,7 +387,7 @@ export function letterforms({ stroke: w, width: f, star = true }) {
 /* ---------- spacing ---------- */
 
 export const SPACING = { depth: 0.15, rows: 250 };
-export const KERNING = { HE: -0.08 };
+export const KERNING = { HE: -0.1 };
 const airs = {};
 
 function sideAir([width, draw]) {

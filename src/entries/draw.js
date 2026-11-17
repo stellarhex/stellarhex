@@ -2,7 +2,7 @@ import { fixed } from "../../tools/core/math.js";
 import { byId, set } from "../../tools/core/dom.js";
 import { MARK_HALF, squareBox, hexagon, points, tag } from "../../tools/core/svg.js";
 import { MARKS } from "../../tools/identity/brand.js";
-import { MARK_CLEAR_SPACE, MIRROR, STATE, markBox, markSvg } from "../../tools/identity/mark.js";
+import { MARK_CLEAR_SPACE, MIRROR, STATE, markSvg, markView } from "../../tools/identity/mark.js";
 import { seal } from "../../tools/identity/seal.js";
 import { WORDMARK, wordBox, wordView, wordmark } from "../../tools/identity/wordmark.js";
 import { SHEETS, sheetView } from "../../tools/identity/anatomy.js";
@@ -23,13 +23,7 @@ const into = (id, write) => {
 /* ---------- logo ---------- */
 
 const drawBrandMark = (holder) => {
-  const ink = markBox();
-
-  holder.innerHTML = markSvg(
-    STATE.mark(),
-    undefined,
-    [ink.x, ink.y, ink.width, ink.height].map(fixed).join(" "),
-  );
+  holder.innerHTML = markSvg(STATE.mark(), undefined, markView());
 };
 
 /* ---------- hero ---------- */

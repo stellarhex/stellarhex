@@ -4,6 +4,7 @@
   --color-night-soft: #a8b1c0;
   --color-brand: #f86848;
   --color-brand-ui: light-dark(#e8512f, var(--color-brand));
+  --color-error: light-dark(#d92d20, #ff453a);
 
   --color-ground: light-dark(#f7f0e7, var(--color-night));
   --color-ink: light-dark(#302b28, #f3f5f9);
@@ -20,8 +21,8 @@
   --text-3xl: 1.875rem;
   --text-5xl: 3rem;
 
-  --font-sans: "StellarHex", system-ui, sans-serif;
-  --font-mono: "StellarHex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --font-sans: "Geist", system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, Menlo, Consolas, monospace;
 
   --shape-hexagon: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
   --shape-hex-ring: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 31.1833'><polygon points='9.2887 0.5 26.7113 0.5 35.4226 15.5917 26.7113 30.6833 9.2887 30.6833 0.5774 15.5917' fill='none' stroke='black' stroke-width='1'/></svg>");

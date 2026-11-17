@@ -1,0 +1,19 @@
+Copyright (c) 2026 StellarHex. All rights reserved.
+
+The source code in this repository is published so that it can be read. It is
+not licensed under an open-source license. No permission is granted to copy,
+modify, redistribute or reuse it, in whole or in part, without prior written
+permission.
+
+Revisions published before this notice under the MIT License remain available
+under that license.
+
+The fonts in src/fonts/ are Geist and Geist Mono, Copyright (c) 2023 Vercel,
+in collaboration with basement.studio, and the glyph outlines in
+tools/identity/mono.js derive from Geist Mono. They remain under the SIL Open
+Font License 1.1 (https://openfontlicense.org) and are not covered by this
+notice.
+
+Use of the StellarHex name and logos is governed by public/BRAND.txt.
+
+Permission requests: contact@stellarhex.com
